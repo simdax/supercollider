@@ -395,6 +395,7 @@ void ScServer::onScLangReponse( const QString & selector, const QString & data )
     static QString ampRangeSelector("serverAmpRange");
     static QString startDumpOSCSelector("dumpOSCStarted");
     static QString stopDumpOSCSelector("dumpOSCStopped");
+
     static QString startRecordingSelector("recordingStarted");
     static QString pauseRecordingSelector("recordingPaused");
     static QString stopRecordingSelector("recordingStopped");
@@ -411,26 +412,29 @@ void ScServer::onScLangReponse( const QString & selector, const QString & data )
 	else if (selector == startDumpOSCSelector) {
         mActions[DumpOSC]->setChecked(true);
     }
+    else if (selector == stopDumpOSCSelector) {
+        mActions[DumpOSC]->setChecked(false);
+    }
+    /*
 	else if (selector == recordingDurationSelector) {
         bool ok;
         float duration = data.mid(1, data.size() - 2).toFloat(&ok);
-        if (ok) {
-            mRecordTime = (int) duration;
-            updateRecordingAction();
-        }
+        if (!ok) return;
+        mRecordTime = (int) duration;
+        updateRecordingAction();
     }
+
     else if (selector == startRecordingSelector) {
         setRecording(true);
     }
-    else if (selector == startRecordingSelector) {
-        setRecording(true);
-    }
+
     else if (selector == pauseRecordingSelector) {
         pauseRecording(true);
     }
     else if (selector == stopRecordingSelector) {
         setRecording(false);
     }
+     */
     else if (selector == ampSelector) {
         bool ok;
         float volume = data.mid(1, data.size() - 2).toFloat(&ok);
