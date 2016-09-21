@@ -44,6 +44,13 @@
 	}
 }
 
++ Pdefn {
+	gui { | numItems, parent, bounds=(100@30), preset|
+		numItems = numItems ?? { max(8, this.envir.size) };
+		^PdefnGuiPlus(this, numItems, parent, bounds, options: preset);
+	}
+}
+
 + Dictionary {
 	/*
 		This method was introducing a conflict with the use of .gui(view,bounds)
