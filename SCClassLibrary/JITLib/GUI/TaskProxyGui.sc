@@ -383,7 +383,10 @@ PdefnGui : JITGui {
 	getState {
 		// get all the state I need to know of the object I am watching
 		var state = (object: object);
-		object !? { state.put(\source, object.source) };
+		object !? {
+			state.put(\source, object.source);
+			state.put(\quant, object.quant);
+		};
 		^state
 	}
 
@@ -404,6 +407,7 @@ PdefnGui : JITGui {
 		if (newState[\source] != prevState[\source]) {
 			defer { csView.textField.string_(object.asCode); };
 		};
+
 		prevState = newState;
 	}
 }
