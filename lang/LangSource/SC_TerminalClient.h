@@ -139,19 +139,18 @@ private:
     static void readlineCmdLine(char* cmdLine);
 #endif
     static void* pipeFunc(void*);
-    void pushCmdLine(const char* newData, size_t size);
 
     void initInput();
     void startInput();
     void endInput();
     void cleanupInput();
-
-    int mReturnCode;
-    Options mOptions;
-
     // app-clock io service
-protected:
     boost::asio::io_service mIoService;
+    int mReturnCode;
+
+protected:
+    void pushCmdLine(const char* newData, size_t size);
+    Options mOptions;
 
 private:
     boost::asio::io_service::work mWork;

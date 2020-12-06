@@ -18,13 +18,27 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
 */
 
-#include "SC_LanguageClient.h"
+#include "SC_TerminalClient.h"
+
+struct Client : SC_TerminalClient {
+    void init() { mOptions.mDaemon = true; }
+    void msg(const char* msg) {
+        auto str = std::string(msg) + "\f";
+        pushCmdLine(str.c_str(), str.size());
+    }
+};
 
 int main(int argc, char** argv) {
-    SC_LanguageClient* client = createLanguageClient("sclang");
+    int returnCode;
+
+    auto client = static_cast<Client*>(createLanguageClient("sclang"));
     if (!client)
         return 1;
-    int returnCode = client->run(argc, argv);
+    client->init();
+    auto t = std::thread([&]() { returnCode = client->run(argc, argv); });
+    client->msg("s.boot;"
+                "Pbind().play;");
+    t.join();
     destroyLanguageClient(client);
     return returnCode;
 }
