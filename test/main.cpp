@@ -28,4 +28,3 @@ int lang_main(int argc, char** argv) {
     destroyLanguageClient(client);
     return returnCode;
 }
-
