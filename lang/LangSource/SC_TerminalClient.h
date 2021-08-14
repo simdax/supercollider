@@ -139,6 +139,7 @@ private:
     static void readlineCmdLine(char* cmdLine);
 #endif
     static void* pipeFunc(void*);
+    public:
     void pushCmdLine(const char* newData, size_t size);
 
     void initInput();

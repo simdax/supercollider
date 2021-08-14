@@ -9,12 +9,13 @@
             "type": "cppvsdbg",
             "request": "launch",
             "program": "${workspaceFolder}\\test\\a.exe",
+            // "program": "${workspaceFolder}\\build\\Install\\Supercollider\\sclang.exe",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
             "console": "externalTerminal",
-            // "preLaunchTask": "C/C++: cl.exe build active file"
+            // "preLaunchTask": "build"
         }
     ]
 }
