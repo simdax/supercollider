@@ -5,13 +5,24 @@
             "label": "C/C++: clang++.exe build active file",
             "command": "C:\\Program Files\\LLVM\\bin\\clang++.exe",
             "args": [
-                "-g",
-                "${file}",
-                "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe"
+                "test\\server.cpp",
+                "test\\SC_ServerBootDelayWarning.cpp",
+                "test\\main.cpp",
+                "-Lbuild\\server\\scsynth\\Debug", 
+                "-llibscsynth",
+                "-Iinclude",
+                "-Iinclude\\common", 
+                "-Iinclude\\server",
+                "-Ibuild\\common",
+                "-Icommon",
+                "-Iinclude\\lang",
+                "-lws2_32", "-g",
+                "-o.\\test\\a.exe",
+                "-L.\\build\\lang\\Debug",
+                "-llibsclang"
             ],
             "options": {
-                "cwd": "${fileDirname}"
+                "cwd": "${workspaceFolder}"
             },
             "problemMatcher": [
                 "$gcc"

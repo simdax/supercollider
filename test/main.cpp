@@ -24,6 +24,7 @@ int wmain(int argc, wchar_t** wargv) {
     if (!SetConsoleOutputCP(65001))
         scprintf("WARNING: could not set codepage to UTF-8\n");
 
+    lang_main();
     auto t = server();
     for (;;) { }
     // clean up winsock

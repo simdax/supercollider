@@ -1,3 +1,4 @@
+#include <iostream>
 #include "include.h"
 #include "SC_LanguageClient.h"
 
@@ -20,11 +21,34 @@ int synth_main() {
     return 0;
 }
 
-int lang_main(int argc, char** argv) {
-    SC_LanguageClient* client = createLanguageClient("sclang");
-    if (!client)
-        return 1;
-    int returnCode = client->run(argc, argv);
-    destroyLanguageClient(client);
-    return returnCode;
+struct LangClient : SC_LanguageClient {
+    FILE* gPostDest = stdout;
+
+    LangClient(const char* name): SC_LanguageClient(name) { }
+
+    virtual void postText(const char* str, size_t len) { fwrite(str, sizeof(char), len, gPostDest); }
+
+    virtual void postFlush(const char* str, size_t len) {
+        fwrite(str, sizeof(char), len, gPostDest);
+        fflush(gPostDest);
+    }
+
+    virtual void postError(const char* str, size_t len) {
+        fprintf(gPostDest, "ERROR: ");
+        fwrite(str, sizeof(char), len, gPostDest);
+    }
+
+    virtual void flush() { fflush(gPostDest); }
+};
+
+int lang_main() {
+    LangClient client("test");
+    SC_LanguageClient::Options options;
+    options.mPort = 6768;
+
+    client.initRuntime(options);
+    client.compileLibrary(false);
+    // int returnCode = client->run(argc, argv);
+    // destroyLanguageClient(client);
+    return 0;
 }
