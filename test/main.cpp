@@ -18,7 +18,6 @@
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
 */
 
-
 #include "SC_WorldOptions.h"
 #include "SC_Version.hpp"
 #include "SC_EventLoop.hpp"
@@ -37,6 +36,7 @@
 #    include <unistd.h> // for _POSIX_MEMLOCK
 #    include <sys/wait.h>
 #endif
+#include <thread>
 
 #ifdef __COBALT__
 #    include "XenomaiLock.h"
@@ -94,22 +94,20 @@ int wmain(int argc, wchar_t** wargv) {
     if (!SetConsoleOutputCP(65001))
         scprintf("WARNING: could not set codepage to UTF-8\n");
 
-    // run main
-    int result = scsynth_main(argv.size(), argv.data());
-
-    // clean up winsock
-    WSACleanup();
-    // reset codepage from UTF-8
-    SetConsoleOutputCP(oldCodePage);
-    // clear vector with converted args
-    for (auto* arg : argv)
-        delete[] arg;
-
-    return result;
+    auto t = std::thread([&]() {
+        // run main
+        int result = scsynth_main(argv.size(), argv.data());
+        // clean up winsock
+        WSACleanup();
+        // reset codepage from UTF-8
+        SetConsoleOutputCP(oldCodePage);
+        // clear vector with converted args
+        for (auto* arg : argv)
+            delete[] arg;
+        return result;
+    });
+    for (;;) { }
 }
-
 #else
-
 int main(int argc, char** argv) { return scsynth_main(argc, argv); };
-
 #endif //_WIN32
