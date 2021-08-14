@@ -11,8 +11,6 @@ auto server() {
 // setlinebuf is equivalent to the setvbuf call below.
 inline int setlinebuf(FILE* stream) { return setvbuf(stream, (char*)0, _IONBF, 0); }
 
-auto oldCodePage = GetConsoleOutputCP();
-
 int initialize_winsock() {
     WSAData wsaData;
     int nCode;
@@ -20,30 +18,30 @@ int initialize_winsock() {
         scprintf("WSAStartup() failed with error code %d.\n", nCode);
         return 1;
     }
-    // set codepage to UTF-8 and remember the old codepage
-    if (!SetConsoleOutputCP(65001))
-        scprintf("WARNING: could not set codepage to UTF-8\n");
     return 0;
 }
 
-void cleanup() {
-    WSACleanup();
-    // reset codepage from UTF-8
-    SetConsoleOutputCP(oldCodePage);
-    // clear vector with converted args
-}
+void cleanup() { WSACleanup(); }
 
 int wmain(int argc, wchar_t** wargv) {
     initialize_winsock();
-    auto t = server();
+    auto server_thread = server();
     // auto client = lang_main();
     auto client = static_cast<SC_TerminalClient*>(createLanguageClient("test"));
-    client->run(0, nullptr);
-    client->pushCmdLine("1 + 1\f", 6);
-    std::this_thread::sleep_for(std::chrono::milliseconds(500));
-    destroyLanguageClient(client);
-    // destroyLanguageClient(client.get());
+    auto _ = std::thread([&]() { client->run(0, nullptr); });
+    std::this_thread::sleep_for(std::chrono::milliseconds(1500));
+    std::string cmd = "a = s.options;"
+                      "t = Server.remote(\"bob\", NetAddr(\"127.0.0.1\",57110), a, 0);\f";
+    client->pushCmdLine(cmd.c_str(), cmd.size());
+    std::this_thread::sleep_for(std::chrono::milliseconds(1500));
+    cmd = "(server:t).play\f";
+    client->pushCmdLine(cmd.c_str(), cmd.size());
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    cmd = "t.quit\f";
+    client->pushCmdLine(cmd.c_str(), cmd.size());
+    server_thread.join();
     cleanup();
+    destroyLanguageClient(client);
 }
 
 

@@ -5,7 +5,8 @@ int synth_main() {
     std::string bindTo("127.0.0.1");
     WorldOptions options;
 
-    struct World* world = World_New(&options);
+    options.mMaxLogins = 1;
+    World* world = World_New(&options);
     if (!world)
         return 1;
     if (udpPortNum >= 0) {

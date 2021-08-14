@@ -15,7 +15,7 @@
             "cwd": "${fileDirname}",
             "environment": [],
             "console": "externalTerminal",
-            // "preLaunchTask": "build"
+            "preLaunchTask": "build"
         }
     ]
 }
