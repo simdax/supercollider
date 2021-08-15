@@ -343,7 +343,7 @@ static int netAddrSend(PyrObject* netAddrObj, int msglen, char* bufptr, bool sen
 
         std::cout << "++++" << std::endl;
         fwrite(bufptr, msglen, 1, stdout);
-        std::cout << "----" << std::endl;
+        std::cout << std::endl << "----" << std::endl;
         gUDPport->Socket().send_to(buffer(bufptr, msglen), address);
     }
 

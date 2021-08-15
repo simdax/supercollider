@@ -59,10 +59,10 @@ struct LangClient : SC_LanguageClient {
     virtual void onLibraryStartup() {
         int base, index = 0;
 
-        base = nextPrimitiveIndex();
+        // base = nextPrimitiveIndex();
         // definePrimitive(base, index++, "_Argv", &SC_TerminalClient::prArgv, 1, 0);
         // definePrimitive(base, index++, "_Exit", &SC_TerminalClient::prExit, 1, 0);
-        definePrimitive(base, index++, "_AppClock_SchedNotify", prScheduleChanged, 1, 0);
+        // definePrimitive(base, index++, "_AppClock_SchedNotify", prScheduleChanged, 1, 0);
         // definePrimitive(base, index++, "_Recompile", &SC_TerminalClient::prRecompile, 1, 0);
     }
 };

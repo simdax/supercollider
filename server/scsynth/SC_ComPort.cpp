@@ -47,7 +47,7 @@
 #    include "Rendezvous.h"
 #endif
 
-
+\
 bool ProcessOSCPacket(World* inWorld, OSC_Packet* inPacket);
 
 namespace scsynth {
