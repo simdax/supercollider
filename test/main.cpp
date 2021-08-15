@@ -20,6 +20,7 @@ void cleanup() { WSACleanup(); }
 int wmain(int argc, wchar_t** wargv) {
     initialize_winsock();
     auto server_thread = server();
+    std::this_thread::sleep_for(std::chrono::milliseconds(3000));
     // for(;;) {}
     auto client = lang_main();
     // auto client = static_cast<SC_TerminalClient*>(createLanguageClient("test"));
