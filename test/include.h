@@ -29,10 +29,13 @@ int synth_main();
 
 #include "SC_LanguageClient.h"
 #include <iostream>
+
 struct LangClient : SC_LanguageClient {
     FILE* gPostDest = stdout;
 
-    LangClient(const char* name): SC_LanguageClient(name) { }
+    void msg(const char *msg);
+    LangClient(const char *name);
+
     virtual void postText(const char* str, size_t len) { fwrite(str, sizeof(char), len, gPostDest); }
     virtual void postFlush(const char* str, size_t len) {
         fwrite(str, sizeof(char), len, gPostDest);
@@ -44,5 +47,5 @@ struct LangClient : SC_LanguageClient {
     }
     virtual void flush() { fflush(gPostDest); }
 };
-std::unique_ptr<LangClient> lang_main();
 
+std::unique_ptr<LangClient> lang_main();

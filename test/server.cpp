@@ -1,4 +1,5 @@
 #include "include.h"
+#include <PyrSymbolTable.h>
 
 int synth_main() {
     int udpPortNum = 57110;
@@ -20,12 +21,22 @@ int synth_main() {
     return 0;
 }
 
-std::unique_ptr<LangClient> lang_main() {
+LangClient::LangClient(const char *name): SC_LanguageClient(name)
+{
     SC_LanguageClient::Options options;
-    auto client = std::make_unique<LangClient>("test");
 
     options.mPort = 57120;
-    client->initRuntime(options);
-    client->compileLibrary(false);
-    return client;
+    initRuntime(options);
+    compileLibrary(false);
+}
+
+void LangClient::msg(const char *msg)
+{
+    setCmdLine(msg);
+    runLibrary("interpretPrintCmdLine");
+    flush();
+}
+
+std::unique_ptr<LangClient> lang_main() {
+    return std::make_unique<LangClient>("test");
 }

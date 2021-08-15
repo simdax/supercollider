@@ -341,6 +341,9 @@ static int netAddrSend(PyrObject* netAddrObj, int msglen, char* bufptr, bool sen
         using namespace boost::asio;
         ip::udp::endpoint address(ip::address_v4(ulAddress), port);
 
+        std::cout << "++++" << std::endl;
+        fwrite(bufptr, msglen, 1, stdout);
+        std::cout << "----" << std::endl;
         gUDPport->Socket().send_to(buffer(bufptr, msglen), address);
     }
 

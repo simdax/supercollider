@@ -6,9 +6,7 @@
             "command": "C:\\Program Files\\LLVM\\bin\\clang++.exe",
             "args": [
                 "test\\server.cpp",
-                "test\\SC_ServerBootDelayWarning.cpp",
                 "test\\main.cpp",
-                "-Lbuild\\server\\scsynth\\Debug", 
                 "-llibscsynth",
                 "-Icommon",
                 "-Iinclude",
@@ -19,11 +17,13 @@
                 "-Ilang\\LangSource",
                 "-Iexternal_libraries\\boost",
                 "-Iexternal_libraries\\boost_sync\\include",
-                "-lws2_32", "-g",
-                "-o.\\test\\a.exe",
                 "-L.\\build\\lang\\Debug",
-                "-llibsclang",
+                "-Lbuild\\server\\scsynth\\Debug", 
                 "-LC:\\Users\\scornaz\\Downloads\\boost_1_74_0\\stage\\lib",
+                "-llibsclang",
+                "-lws2_32", 
+                "-g",
+                "-o.\\test\\a.exe",
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
