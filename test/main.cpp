@@ -22,13 +22,12 @@ int wmain(int argc, wchar_t** wargv) {
     auto server_thread = server();
     auto client = lang_main();
     std::this_thread::sleep_for(std::chrono::milliseconds(3000));
-    client->msg("Server.default = Server.remote('test', NetAddr(\"127.0.0.1\",57110), ServerOptions.new, 0);");
-    std::this_thread::sleep_for(std::chrono::milliseconds(1500));
-    client->msg("{SinOsc.ar(mul:Env.perc.kr(2) * 0.3)}.play");
+    client->msg("Server.default = Server.remote('test', NetAddr(\"127.0.0.1\",57110), ServerOptions());");
     std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+    client->msg("{SinOsc.ar(mul:Env.perc.kr(2) * 0.3)}.play");
+    std::this_thread::sleep_for(std::chrono::milliseconds(1500));
     client->msg("s.quit");
     server_thread.join();
-    std::this_thread::sleep_for(std::chrono::milliseconds(3000));
     // destroyLanguageClient(client);
     cleanup();
 }

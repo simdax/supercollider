@@ -25,7 +25,7 @@ LangClient::LangClient(const char *name): SC_LanguageClient(name)
 {
     SC_LanguageClient::Options options;
 
-    options.mPort = 57120;
+    // options.mPort = 57120;
     initRuntime(options);
     compileLibrary(false);
 }
