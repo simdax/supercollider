@@ -26,6 +26,7 @@ int wmain(int argc, wchar_t** wargv) {
     // auto client = static_cast<SC_TerminalClient*>(createLanguageClient("test"));
     // auto _ = std::thread([&]() { client->run(0, nullptr); });
     std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+    client->msg("SynthDescLib.global.synthDescs.at(\\default)");
     client->msg("a = s.options;"
                 "t = Server.remote(\"bob\", NetAddr(\"127.0.0.1\",57110), a, 0);");
     std::this_thread::sleep_for(std::chrono::milliseconds(1500));
