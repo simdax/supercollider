@@ -7,15 +7,19 @@
         {
             "name": "cl.exe - Build and debug active file",
             "type": "cppvsdbg",
-            "request": "launch",
-            "program": "${workspaceFolder}\\test\\a.exe",
+            "request": "attach",
+            "processId":"${command:pickProcess}",
+            "symbolSearchPath": "C:\\Users\\scornaz\\MyFirstGame\\Assets\\plugins\\x64",
+            // "request": "launch",
+            "program": "${workspaceFolder}\\build\\Install\\Supercollider\\scsynth.exe",
+            // "program": "${workspaceFolder}\\test\\a.exe",
             // "program": "${workspaceFolder}\\build\\Install\\Supercollider\\sclang.exe",
-            "args": [],
+            "args": ["-u", "57119"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
             "console": "externalTerminal",
-            "preLaunchTask": "build"
+            // "preLaunchTask": "build"
         }
     ]
 }

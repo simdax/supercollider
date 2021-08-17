@@ -189,14 +189,14 @@ private:
     void MarkBinBlock(size_t inIndex) {
         size_t word = inIndex >> 5;
         size_t bitPosition = inIndex & 31;
-        size_t bitValue = 1L << bitPosition;
+        size_t bitValue = 1ULL << bitPosition;
         mBinBlocks[word] |= bitValue;
     }
 
     void ClearBinBlock(size_t inIndex) {
         size_t word = inIndex >> 5;
         size_t bitPosition = inIndex & 31;
-        size_t bitValue = 1L << bitPosition;
+        size_t bitValue = 1ULL << bitPosition;
         mBinBlocks[word] &= ~bitValue;
     }
 

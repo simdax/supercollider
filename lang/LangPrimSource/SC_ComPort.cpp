@@ -65,6 +65,17 @@ void stopAsioThread() {
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+boost::asio::ip::udp::socket *gUdpSocket = nullptr;
+
+void CloseUDPConnection()
+{
+    if (gUdpSocket)
+    {
+        gUdpSocket->close();
+        gUdpSocket = nullptr;
+    }
+}
+
 SC_UdpInPort::SC_UdpInPort(int inPortNum, int portsToCheck): mPortNum(inPortNum), udpSocket(ioService) {
     using namespace boost::asio;
 
@@ -89,7 +100,8 @@ SC_UdpInPort::SC_UdpInPort(int inPortNum, int portsToCheck): mPortNum(inPortNum)
     startReceiveUDP();
 }
 
-SC_UdpInPort::~SC_UdpInPort() {}
+SC_UdpInPort::~SC_UdpInPort() {
+}
 
 
 void SC_UdpInPort::startReceiveUDP() {

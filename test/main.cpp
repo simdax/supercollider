@@ -30,7 +30,7 @@ int wmain(int argc, wchar_t** wargv) {
             std::this_thread::sleep_for(std::chrono::milliseconds(200));
         }
     });
-     std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+    std::this_thread::sleep_for(std::chrono::milliseconds(2000));
     client->msg("Server.default = t");
     std::this_thread::sleep_for(std::chrono::milliseconds(2000));
     // client->msg("{SinOsc.ar(mul:Env.perc.kr(2) * 0.3)}.play");

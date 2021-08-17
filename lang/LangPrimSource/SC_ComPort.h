@@ -21,6 +21,7 @@
 #pragma once
 
 #include "SC_Types.h"
+#include "SC_Export.h"
 
 #include <boost/array.hpp>
 #include <boost/asio.hpp>
@@ -29,6 +30,9 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 const int kTextBufSize = 65536;
+extern boost::asio::ip::udp::socket *gUdpSocket;
+
+SCSYNTH_DLLEXPORT_C void CloseUDPConnection();
 
 class SC_UdpInPort {
     int mPortNum;

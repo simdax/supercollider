@@ -197,7 +197,7 @@ option(NO_X11 "Disables the building of plugins that require the X11 library (fo
 option(ENABLE_TESTSUITE "Compile testsuite." ON)
 
 # Build supernova by default only when on Linux or BSD systems
-option(SUPERNOVA "Build with supernova as optional audio synthesis server" ${LINUX_OR_BSD})
+option(SUPERNOVA "Build with supernova as optional audio synthesis server" ON)
 
 option(SN_MEMORY_DEBUGGING "Build supernova for memory debugging (disable memory pools).")
 option(SC_MEMORY_DEBUGGING "Build sclang&scsynth for memory debugging (disable memory pools).")
@@ -367,6 +367,10 @@ if(MSVC)
 # caused by some versions of libsndfile's C++ header redefining nullptr as NULL. 
 # See https://devblogs.microsoft.com/cppblog/msvc-now-correctly-reports-__cplusplus/
   add_compile_options("/Zc:__cplusplus")
+
+  set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /Zi")
+	set(CMAKE_SHARED_LINKER_FLAGS_RELEASE "${CMAKE_SHARED_LINKER_FLAGS_RELEASE} /DEBUG /OPT:REF /OPT:ICF")
+  add_compile_options("/Zi")
 
 # _ENABLE_ATOMIC_ALIGNMENT_FIX prevents the build from breaking when VS2015 update 2 upwards are used
 # see http://boost.2283326.n4.nabble.com/lockfree-ENABLE-ATOMIC-ALIGNMENT-FIX-for-VS-2015-Update-2-td4685955.html

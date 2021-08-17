@@ -11,6 +11,7 @@
 #include <math.h>
 #include "clz.h"
 #include <stdexcept>
+#include <thread>
 #ifdef _WIN32
 #    include <winsock2.h>
 #    include <vector>
@@ -18,12 +19,6 @@
 #    include <unistd.h> // for _POSIX_MEMLOCK
 #    include <sys/wait.h>
 #endif
-#include <thread>
-
-#ifdef __COBALT__
-#    include "XenomaiLock.h"
-static XenomaiInitializer xenomaiInitializer;
-#endif // __COBALT__
 
 int synth_main();
 

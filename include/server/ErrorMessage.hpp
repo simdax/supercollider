@@ -82,6 +82,7 @@ std::string apiVersionMismatch(std::string const& utf8Filename, int const expect
         message << indent << "This plugin is not compatible with SuperCollider >=" << scVersion << "\n";
         message << indent << "The plugin has not been loaded; please find or compile a newer version.\n";
     } catch (std::out_of_range const& exception) {
+        (void)exception;
         message << indent << "This plugin uses an unknown version of the interface.\n";
         message << indent << "You may need to update SuperCollider in order to use it.\n";
     }

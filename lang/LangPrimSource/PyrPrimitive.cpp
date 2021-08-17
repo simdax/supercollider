@@ -3890,6 +3890,7 @@ void doPrimitive(VMGlobals* g, PyrMethod* meth, int numArgsPushed) {
         g->gc->SanityCheck();
 #endif
     } catch (std::exception& ex) {
+        (void)ex;
         g->lastExceptions[g->thread] = std::make_pair(std::current_exception(), meth);
         err = errException;
     } catch (...) {

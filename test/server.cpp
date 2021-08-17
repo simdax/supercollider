@@ -32,11 +32,9 @@ LangClient::LangClient(const char *name): SC_LanguageClient(name)
 
 void LangClient::msg(const char *msg)
 {
-    tick();
     setCmdLine(msg);
     interpretPrintCmdLine();
     flush();
-    tick();
 }
 
 std::unique_ptr<LangClient> lang_main() {
