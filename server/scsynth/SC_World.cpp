@@ -285,13 +285,15 @@ void stopAsioThread();
 bool asioThreadStarted();
 }
 
-World* World_New2()
+World* World_NewFromPath(
+    const char *plugins_path
+)
 {
     WorldOptions options;
 
     options.mVerbosity= 1;
     options.mMaxLogins = 1;
-    options.mUGensPluginPath = "C:\\Users\\scornaz\\git\\supercollider\\test\\plugins";
+    options.mUGensPluginPath = plugins_path;
     auto world = World_New(&options);
     world->mDumpOSC = 1;
     return world;

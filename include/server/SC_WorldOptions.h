@@ -105,7 +105,7 @@ struct SndBuf;
 
 SCSYNTH_DLLEXPORT_C void SetPrintFunc(PrintFunc func);
 SCSYNTH_DLLEXPORT_C struct World* World_New(struct WorldOptions* inOptions);
-SCSYNTH_DLLEXPORT_C struct World* World_New2();
+SCSYNTH_DLLEXPORT_C struct World* World_NewFromPath(const char *plugin_path);
 
 SCSYNTH_DLLEXPORT_C void World_Cleanup(struct World* inWorld, bool unload_plugins = false);
 SCSYNTH_DLLEXPORT_C void World_NonRealTimeSynthesis(struct World* inWorld, struct WorldOptions* inOptions);
