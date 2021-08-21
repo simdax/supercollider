@@ -290,6 +290,8 @@ World* World_New2()
     WorldOptions options;
 
     options.mVerbosity= 1;
+    options.mMaxLogins = 1;
+    options.mUGensPluginPath = "C:\\Users\\scornaz\\git\\supercollider\\test\\plugins";
     auto world = World_New(&options);
     world->mDumpOSC = 1;
     return world;
@@ -1202,8 +1204,14 @@ void SetPrintFunc(PrintFunc func) { gPrint = func; }
 int scprintf(const char* fmt, ...) {
     va_list vargs;
     va_start(vargs, fmt);
+
     if (gPrint)
-        return (*gPrint)(fmt, vargs);
+    {
+        char buffer[512];
+        vsprintf(buffer, fmt, vargs);
+        return (*gPrint)(buffer, vargs);
+        // return (*gPrint)(fmt, vargs);
+    }
     else
         return vprintf(fmt, vargs);
 }

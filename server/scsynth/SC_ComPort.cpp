@@ -47,13 +47,14 @@
 #    include "Rendezvous.h"
 #endif
 
-\
+boost::asio::ip::tcp::socket *g_tcpSocket = nullptr;
+boost::asio::ip::udp::socket *g_udpSocket = nullptr;
+
 bool ProcessOSCPacket(World* inWorld, OSC_Packet* inPacket);
 
 namespace scsynth {
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 static bool UnrollOSCPacket(World* inWorld, int inSize, char* inData, OSC_Packet* inPacket) {
     if (!strcmp(inData, "#bundle")) { // is a bundle
@@ -149,7 +150,6 @@ boost::asio::io_service ioService;
 
 const int kTextBufSize = 65536;
 
-
 static void udp_reply_func(struct ReplyAddress* addr, char* msg, int size) {
     using namespace boost::asio;
 
@@ -188,7 +188,6 @@ static void tcp_reply_func(struct ReplyAddress* addr, char* msg, int size) {
     if (errc)
         printf("%s\n", errc.message().c_str());
 }
-
 
 class SC_UdpInPort {
     struct World* mWorld;
@@ -264,9 +263,9 @@ public:
 #endif
 
         startReceiveUDP();
+        g_udpSocket = &udpSocket;
     }
 };
-
 
 class SC_TcpConnection : public boost::enable_shared_from_this<SC_TcpConnection> {
 public:
@@ -433,7 +432,6 @@ public:
 
 SC_TcpConnection::~SC_TcpConnection() { mParent->connectionDestroyed(); }
 
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 static void asioFunction() {
@@ -466,7 +464,6 @@ bool asioThreadStarted() { return gAsioThread.joinable(); }
 using namespace scsynth;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 SCSYNTH_DLLEXPORT_C bool World_SendPacketWithContext(World* inWorld, int inSize, char* inData, ReplyFunc inFunc,
                                                      void* inContext) {
@@ -518,6 +515,15 @@ template <typename T, typename... Args> static bool protectedOpenPort(const char
 
 SCSYNTH_DLLEXPORT_C int World_OpenUDP(struct World* inWorld, const char* bindTo, int inPort) {
     return protectedOpenPort<SC_UdpInPort>("UDP", inWorld, bindTo, inPort);
+}
+
+SCSYNTH_DLLEXPORT_C int World_CloseUDP() {
+    if (g_udpSocket) {
+        g_udpSocket->close();
+        g_udpSocket = nullptr;
+        return 1;
+    }
+    return 0;
 }
 
 SCSYNTH_DLLEXPORT_C int World_OpenTCP(struct World* inWorld, const char* bindTo, int inPort, int inMaxConnections,

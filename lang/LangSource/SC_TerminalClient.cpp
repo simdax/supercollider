@@ -226,6 +226,7 @@ optArgInvalid:
 }
 
 int SC_TerminalClient::run(int argc, char** argv) {
+    
     Options& opt = mOptions;
 
     if (!parseOptions(argc, argv, opt)) {
