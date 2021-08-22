@@ -52,7 +52,7 @@ struct LangClient : SC_LanguageClient {
     }
 
     virtual void onLibraryStartup() {
-        int base, index = 0;
+        // int base, index = 0;
 
         // base = nextPrimitiveIndex();
         // definePrimitive(base, index++, "_Argv", &SC_TerminalClient::prArgv, 1, 0);
@@ -63,3 +63,7 @@ struct LangClient : SC_LanguageClient {
 };
 
 std::unique_ptr<LangClient> lang_main();
+
+SCLANG_DLLEXPORT_C void* get_lang_main();
+SCLANG_DLLEXPORT_C void lang_msg(const char *msg);
+SCLANG_DLLEXPORT_C void lang_tick();

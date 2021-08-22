@@ -1,0 +1,5 @@
+includePaths:
+    - C:/Users/scornaz/git/supercollider/test
+# excludePaths:
+postInlineWarnings: true
+excludeDefaultPaths: true

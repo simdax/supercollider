@@ -9,29 +9,30 @@
             "type": "cppvsdbg",
             "request": "launch",
             "symbolSearchPath": "C://Users//scornaz//MyFirstGame//Assets//plugins//x64",
-            "program" : "C:/Program Files/Unity/Hub/Editor/2020.3.16f1/Editor/Unity.exe",
-            "args": ["-projectPath", "C:/Users/scornaz/MyFirstGame"],
-            "stopAtEntry": false,
-            // "console": "externalTerminal",
+            "program": "C:/Program Files/Unity/Hub/Editor/2020.3.16f1/Editor/Unity.exe",
+            "args": [
+                "-projectPath",
+                "C:/Users/scornaz/MyFirstGame"
+            ],
         },
-        // {
-        //     "name": "cl.exe - Build and debug active file",
-        //     "type": "cppvsdbg",
-        //     "request": "attach",
-        //     "processId":"${command:pickProcess}",
-        //     "symbolSearchPath": "C://Users//scornaz//MyFirstGame//Assets//plugins//x64",
-        //     // "request": "launch",
-        // //    "program": "${workspaceFolder}//build//Install//Supercollider//scsynth.exe",
-        //     "program" : "C:/Program Files/Unity/Hub/Editor/2020.3.16f1/Editor/Unity.exe",
-        //     "args": ["-projectPath", "C:/Users/scornaz/MyFirstGame"],
-        //     // "program": "${workspaceFolder}//test//a.exe",
-        //     // "program": "${workspaceFolder}//build//Install//Supercollider//sclang.exe",
-        //     // "args": ["-u", "57119"],
-        //     "stopAtEntry": false,
-        //     "cwd": "${fileDirname}",
-        //     "environment": [],
-        //     "console": "externalTerminal",
-        //     // "preLaunchTask": "build"
-        // }
+        {
+            "name": "classic sclang",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/lang/Debug/sclang.exe",
+            "args": [
+                "-u",
+                "57119"
+            ],
+        },
+        {
+            "name": "a.exe",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/test",
+            "program": "${workspaceFolder}/test/build/Debug/unity.exe",
+            "preLaunchTask": "cmake a.exe",
+            "console": "integratedTerminal",
+        }
     ]
 }

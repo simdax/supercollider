@@ -7,6 +7,7 @@ int synth_main() {
     WorldOptions options;
 
     options.mMaxLogins = 1;
+    options.mUGensPluginPath = "C:\\Users\\scornaz\\git\\supercollider\\test\\plugins"; 
     World* world = World_New(&options);
     if (!world)
         return 1;
@@ -21,8 +22,7 @@ int synth_main() {
     return 0;
 }
 
-LangClient::LangClient(const char *name): SC_LanguageClient(name)
-{
+LangClient::LangClient(const char* name): SC_LanguageClient(name) {
     SC_LanguageClient::Options options;
 
     // options.mPort = 57120;
@@ -30,13 +30,29 @@ LangClient::LangClient(const char *name): SC_LanguageClient(name)
     compileLibrary(false);
 }
 
-void LangClient::msg(const char *msg)
-{
+void LangClient::msg(const char* msg) {
     setCmdLine(msg);
     interpretPrintCmdLine();
     flush();
 }
 
-std::unique_ptr<LangClient> lang_main() {
-    return std::make_unique<LangClient>("test");
+std::unique_ptr<LangClient> lang_main() { return std::make_unique<LangClient>("test"); }
+
+LangClient* gLangClient = nullptr;
+
+SCLANG_DLLEXPORT_C void* get_lang_main() {
+    gLangClient = new LangClient("test");
+    return (void*)gLangClient;
+}
+
+SCLANG_DLLEXPORT_C void lang_msg(const char* msg) {
+    if (gLangClient) {
+        gLangClient->msg(msg);
+    }
+}
+
+SCLANG_DLLEXPORT_C void lang_tick() {
+    if (gLangClient) {
+        gLangClient->tick();
+    }
 }

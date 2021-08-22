@@ -299,7 +299,9 @@ void SC_LanguageClient::lock() { gLangMutex.lock(); }
 bool SC_LanguageClient::trylock() { return gLangMutex.try_lock(); }
 void SC_LanguageClient::unlock() { gLangMutex.unlock(); }
 
-SC_LanguageClient* SC_LanguageClient::instance() { return gInstance; }
+SC_LanguageClient* SC_LanguageClient::instance() { 
+    return gInstance; 
+}
 
 void SC_LanguageClient::lockInstance() { gInstanceMutex.lock(); }
 void SC_LanguageClient::unlockInstance() { gInstanceMutex.unlock(); }

@@ -227,16 +227,15 @@ optArgInvalid:
 
 std::thread *thread = nullptr;
 
-SCLANG_DLLEXPORT_C int runTerminalClient(void* _client, const char *configPath) {
+SCLANG_DLLEXPORT int runTerminalClient(void* _client, const char *configPath) {
     auto client = reinterpret_cast<SC_TerminalClient*>(_client);
     // client->mOptions.mLibraryConfigFile = configPath;
-    // client->mOptions.mLibraryConfigFile = configPath;
-    client->mOptions.mLibraryConfigFile = "C:\\Users\\scornaz\\git\\supercollider\\test\\config.yaml";
+    // client->mOptions.mLibraryConfigFile = "C:\\Users\\scornaz\\git\\supercollider\\test\\config.yaml";
     if (client) {
-        // thread = &std::thread([&](){
+        thread = &std::thread([&](){
             return client->run(0, nullptr);
-        // });
-        // return 1;
+        });
+        return 1;
     }
     return 0;
 }
@@ -271,8 +270,8 @@ int SC_TerminalClient::run(int argc, char** argv) {
     opt.mArgv = argv;
 
     // read library configuration file
-    if (opt.mLibraryConfigFile)
-        SC_LanguageConfig::setConfigPath(opt.mLibraryConfigFile);
+    // if (opt.mLibraryConfigFile)
+    //     SC_LanguageConfig::setConfigPath(opt.mLibraryConfigFile);
     SC_LanguageConfig::readLibraryConfig(opt.mStandalone);
 
     // initialize runtime

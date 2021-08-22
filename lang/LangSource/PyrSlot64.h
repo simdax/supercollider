@@ -253,11 +253,11 @@ inline PyrSymbol* slotRawSymbol(PyrSlot* slot) { return slot->u.s; }
 
 inline const PyrSymbol* slotRawSymbol(const PyrSlot* slot) { return slot->u.s; }
 
-inline int slotRawChar(const PyrSlot* slot) { return slot->u.c; }
+inline int slotRawChar(const PyrSlot* slot) { return static_cast<int>(slot->u.c); }
 
 inline int slotRawInt(const PyrSlot* slot) {
     assert(IsInt(slot));
-    return slot->u.i;
+    return static_cast<int>(slot->u.i);
 }
 
 inline double slotRawFloat(const PyrSlot* slot) {
