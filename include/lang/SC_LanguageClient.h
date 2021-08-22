@@ -37,6 +37,9 @@
 SCLANG_DLLEXPORT class SC_LanguageClient* createLanguageClient(const char* name);
 SCLANG_DLLEXPORT void destroyLanguageClient(class SC_LanguageClient*);
 
+SCLANG_DLLEXPORT_C int runTerminalClient(void* client, const char *libraryPath);
+SCLANG_DLLEXPORT_C int msgTerminalClient(void* client, const char *msg);
+
 class SCLANG_DLLEXPORT SC_LanguageClient {
 public:
     struct Options {

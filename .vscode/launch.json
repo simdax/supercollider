@@ -5,21 +5,33 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "cl.exe - Build and debug active file",
+            "name": "unity",
             "type": "cppvsdbg",
-            "request": "attach",
-            "processId":"${command:pickProcess}",
-            "symbolSearchPath": "C:\\Users\\scornaz\\MyFirstGame\\Assets\\plugins\\x64",
-            // "request": "launch",
-            "program": "${workspaceFolder}\\build\\Install\\Supercollider\\scsynth.exe",
-            // "program": "${workspaceFolder}\\test\\a.exe",
-            // "program": "${workspaceFolder}\\build\\Install\\Supercollider\\sclang.exe",
-            "args": ["-u", "57119"],
+            "request": "launch",
+            "symbolSearchPath": "C://Users//scornaz//MyFirstGame//Assets//plugins//x64",
+            "program" : "C:/Program Files/Unity/Hub/Editor/2020.3.16f1/Editor/Unity.exe",
+            "args": ["-projectPath", "C:/Users/scornaz/MyFirstGame"],
             "stopAtEntry": false,
-            "cwd": "${fileDirname}",
-            "environment": [],
-            "console": "externalTerminal",
-            // "preLaunchTask": "build"
-        }
+            // "console": "externalTerminal",
+        },
+        // {
+        //     "name": "cl.exe - Build and debug active file",
+        //     "type": "cppvsdbg",
+        //     "request": "attach",
+        //     "processId":"${command:pickProcess}",
+        //     "symbolSearchPath": "C://Users//scornaz//MyFirstGame//Assets//plugins//x64",
+        //     // "request": "launch",
+        // //    "program": "${workspaceFolder}//build//Install//Supercollider//scsynth.exe",
+        //     "program" : "C:/Program Files/Unity/Hub/Editor/2020.3.16f1/Editor/Unity.exe",
+        //     "args": ["-projectPath", "C:/Users/scornaz/MyFirstGame"],
+        //     // "program": "${workspaceFolder}//test//a.exe",
+        //     // "program": "${workspaceFolder}//build//Install//Supercollider//sclang.exe",
+        //     // "args": ["-u", "57119"],
+        //     "stopAtEntry": false,
+        //     "cwd": "${fileDirname}",
+        //     "environment": [],
+        //     "console": "externalTerminal",
+        //     // "preLaunchTask": "build"
+        // }
     ]
 }

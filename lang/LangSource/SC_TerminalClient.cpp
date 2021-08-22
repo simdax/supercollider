@@ -85,7 +85,7 @@ SC_TerminalClient::SC_TerminalClient(const char* name):
 {
 }
 
-SC_TerminalClient::~SC_TerminalClient() {}
+SC_TerminalClient::~SC_TerminalClient() { }
 
 void SC_TerminalClient::postText(const char* str, size_t len) { fwrite(str, sizeof(char), len, gPostDest); }
 
@@ -225,8 +225,32 @@ optArgInvalid:
     return false;
 }
 
+std::thread *thread = nullptr;
+
+SCLANG_DLLEXPORT_C int runTerminalClient(void* _client, const char *configPath) {
+    auto client = reinterpret_cast<SC_TerminalClient*>(_client);
+    // client->mOptions.mLibraryConfigFile = configPath;
+    // client->mOptions.mLibraryConfigFile = configPath;
+    client->mOptions.mLibraryConfigFile = "C:\\Users\\scornaz\\git\\supercollider\\test\\config.yaml";
+    if (client) {
+        // thread = &std::thread([&](){
+            return client->run(0, nullptr);
+        // });
+        // return 1;
+    }
+    return 0;
+}
+
+SCLANG_DLLEXPORT_C int msgTerminalClient(void* _client, const char* msg) {
+    auto client = reinterpret_cast<SC_TerminalClient*>(_client);
+    if (client) {
+        client->setCmdLine(msg);
+        client->interpretPrintCmdLine();
+    }
+    return 0;
+}
+
 int SC_TerminalClient::run(int argc, char** argv) {
-    
     Options& opt = mOptions;
 
     if (!parseOptions(argc, argv, opt)) {
