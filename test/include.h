@@ -60,7 +60,7 @@ struct LangClient : SC_LanguageClient {
     }
 };
 
-SCLANG_DLLEXPORT_C void* get_lang_main();
+SCLANG_DLLEXPORT_C int server_new(int udpPortNum, const char* bindTo, const char* pluginPath);
+SCLANG_DLLEXPORT_C void lang_new(const char *libPath);
 SCLANG_DLLEXPORT_C void lang_msg(const char *msg);
 SCLANG_DLLEXPORT_C void lang_tick();
-SCLANG_DLLEXPORT_C int synth_main();

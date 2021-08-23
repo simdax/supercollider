@@ -1,9 +1,10 @@
 #include "include.h"
 #include <PyrSymbolTable.h>
 
-LangClient::LangClient(const char* name): SC_LanguageClient(name) {
+LangClient::LangClient(const char* libraryPath): SC_LanguageClient("C_API") {
     SC_LanguageClient::Options options;
 
+    options.mRuntimeDir = const_cast<char*>(libraryPath);
     initRuntime(options);
     compileLibrary(false);
 }
@@ -16,9 +17,8 @@ void LangClient::msg(const char* msg) {
 
 LangClient* gLangClient = nullptr;
 
-SCLANG_DLLEXPORT_C void* get_lang_main() {
-    gLangClient = new LangClient("test");
-    return (void*)gLangClient;
+SCLANG_DLLEXPORT_C void lang_new(const char *libPath) {
+    gLangClient = new LangClient(libPath);
 }
 
 SCLANG_DLLEXPORT_C void lang_msg(const char* msg) {
@@ -33,18 +33,16 @@ SCLANG_DLLEXPORT_C void lang_tick() {
     }
 }
 
-SCLANG_DLLEXPORT_C int synth_main() {
-    int udpPortNum = 57110;
-    std::string bindTo("127.0.0.1");
+SCLANG_DLLEXPORT_C int server_new(int udpPortNum, const char* bindTo, const char* pluginPath) {
     WorldOptions options;
 
     options.mMaxLogins = 2;
-    // options.mUGensPluginPath = "C:\\Users\\scornaz\\git\\supercollider\\test\\plugins"; 
+    options.mUGensPluginPath = pluginPath;
     World* world = World_New(&options);
     if (!world)
         return 1;
     if (udpPortNum >= 0) {
-        if (!World_OpenUDP(world, bindTo.c_str(), udpPortNum)) {
+        if (!World_OpenUDP(world, bindTo, udpPortNum)) {
             World_Cleanup(world, true);
             return 1;
         }
