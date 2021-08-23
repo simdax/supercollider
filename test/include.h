@@ -20,8 +20,6 @@
 #    include <sys/wait.h>
 #endif
 
-int synth_main();
-
 #include "SC_LanguageClient.h"
 #include <PyrPrimitive.h>
 #include <iostream>
@@ -62,8 +60,7 @@ struct LangClient : SC_LanguageClient {
     }
 };
 
-std::unique_ptr<LangClient> lang_main();
-
 SCLANG_DLLEXPORT_C void* get_lang_main();
 SCLANG_DLLEXPORT_C void lang_msg(const char *msg);
 SCLANG_DLLEXPORT_C void lang_tick();
+SCLANG_DLLEXPORT_C int synth_main();

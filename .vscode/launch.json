@@ -29,8 +29,8 @@
             "name": "a.exe",
             "type": "cppvsdbg",
             "request": "launch",
-            "cwd": "${workspaceFolder}/test",
-            "program": "${workspaceFolder}/test/build/Debug/unity.exe",
+            "cwd": "${workspaceFolder}/test/build/Debug",
+            "program": "${workspaceFolder}/test/build/Debug/unity_bin.exe",
             "preLaunchTask": "cmake a.exe",
             "console": "integratedTerminal",
         }

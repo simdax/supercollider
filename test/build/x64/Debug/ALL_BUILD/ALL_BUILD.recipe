@@ -8,6 +8,9 @@
       <FullPath>C:\Users\scornaz\git\supercollider\test\build\Debug\unity.dll</FullPath>
     </ProjectOutput>
     <ProjectOutput>
+      <FullPath>C:\Users\scornaz\git\supercollider\test\build\Debug\unity_bin.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
       <FullPath>C:\Users\scornaz\git\supercollider\test\build\x64\Debug\ALL_BUILD</FullPath>
     </ProjectOutput>
   </ProjectOutputs>

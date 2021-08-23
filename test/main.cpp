@@ -1,33 +1,31 @@
 #include "include.h"
 #include <SC_TerminalClient.h>
 
+std::thread *server_thread = nullptr;
+std::thread *lang_thread = nullptr;
+
 SCLANG_DLLEXPORT_C void go()
 {
-    auto server_thread = std::thread([]() { synth_main(); });
-    // std::this_thread::sleep_for(std::chrono::milliseconds(300));
-    // auto client = lang_main();
-    // client->msg("t = Server.remote('test', NetAddr(\"127.0.0.1\",57110), ServerOptions());"
-    //             "Server.default = t;");
-    // bool stop = false;
-    // auto _t = std::thread([&]() {
-    //     while (!stop) {
-    //         client->tick();
-    //         std::this_thread::sleep_for(std::chrono::milliseconds(100));
-    //     }
-    // });
-    // std::this_thread::sleep_for(std::chrono::milliseconds(2000));
-    // client->msg("(note:4).play");
-    // client->msg("(note:0).play");
-    // std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-    // stop = true;
-    // client->msg("s.quit");
-    // client->tick();
-    // _t.join();
-    // server_thread.join();
-    std::cout << "bye";
+    server_thread = new std::thread([]() { synth_main(); });
+    std::this_thread::sleep_for(std::chrono::milliseconds(5000));
+    get_lang_main();
+    lang_msg("t = Server.remote('test', NetAddr(\"127.0.0.1\",57110), ServerOptions());"
+                "Server.default = t;");
+    lang_thread = new std::thread([&]() {
+        while (true) {
+            lang_tick();
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        }
+    });
 }
 
 int main(int argc, char** wargv) {
     go();
+    std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+    lang_msg("(note:4).play");
+    lang_msg("(note:0).play");
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    lang_msg("s.quit");
+    lang_tick();
     return 0;
 }

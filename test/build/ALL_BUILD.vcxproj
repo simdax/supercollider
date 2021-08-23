@@ -174,6 +174,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <Project>{F1CB10C0-A0BC-370C-8257-3D5CA811C9F6}</Project>
       <Name>unity</Name>
     </ProjectReference>
+    <ProjectReference Include="C:\Users\scornaz\git\supercollider\test\build\unity_bin.vcxproj">
+      <Project>{A1C313FF-1641-33D6-9FF5-39E9E5731041}</Project>
+      <Name>unity_bin</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

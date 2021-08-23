@@ -9,7 +9,7 @@
                 "${workspaceFolder}/test/build"
             ],
             "detail": "compiler: cmake",
-            "group": "build"
+            "group": "build",
         },
         {
             "type": "cppbuild",
