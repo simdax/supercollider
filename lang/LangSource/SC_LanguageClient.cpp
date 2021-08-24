@@ -144,6 +144,7 @@ void SC_LanguageClient::setCmdLine(const char* buf, size_t size) {
 }
 
 void SC_LanguageClient::setCmdLine(const char* str) { setCmdLine(str, strlen(str)); }
+/initrun
 
 void SC_LanguageClient::setCmdLinef(const char* fmt, ...) {
     SC_StringBuffer& scratch = mHiddenClient->mScratch;
