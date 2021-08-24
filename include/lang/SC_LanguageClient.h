@@ -29,6 +29,7 @@
 #include "SC_Export.h"
 #include <cstdio>
 #include <cstdarg>
+#include <SC_LanguageConfig.hpp>
 
 // =====================================================================
 // SC_LanguageClient - abstract sclang client.

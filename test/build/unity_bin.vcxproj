@@ -86,7 +86,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\scornaz\git\supercollider\test\..\common;C:\Users\scornaz\git\supercollider\test\..\include;C:\Users\scornaz\git\supercollider\test\..\include\common;C:\Users\scornaz\git\supercollider\test\..\include\server;C:\Users\scornaz\git\supercollider\test\..\build\common;C:\Users\scornaz\git\supercollider\test\..\include\lang;C:\Users\scornaz\git\supercollider\test\..\lang\LangSource;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost_sync\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\scornaz\git\supercollider\test\..\common;C:\Users\scornaz\git\supercollider\test\..\include;C:\Users\scornaz\git\supercollider\test\..\include\common;C:\Users\scornaz\git\supercollider\test\..\include\server;C:\Users\scornaz\git\supercollider\test\..\build\common;C:\Users\scornaz\git\supercollider\test\..\include\lang;C:\Users\scornaz\git\supercollider\test\..\lang\LangSource;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost_sync\include;C:\Users\scornaz\git\supercollider\test\..\external_libraries\yaml-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -101,10 +101,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;BUILDING_SCLANG;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\scornaz\git\supercollider\test\..\common;C:\Users\scornaz\git\supercollider\test\..\include;C:\Users\scornaz\git\supercollider\test\..\include\common;C:\Users\scornaz\git\supercollider\test\..\include\server;C:\Users\scornaz\git\supercollider\test\..\build\common;C:\Users\scornaz\git\supercollider\test\..\include\lang;C:\Users\scornaz\git\supercollider\test\..\lang\LangSource;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost_sync\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\scornaz\git\supercollider\test\..\common;C:\Users\scornaz\git\supercollider\test\..\include;C:\Users\scornaz\git\supercollider\test\..\include\common;C:\Users\scornaz\git\supercollider\test\..\include\server;C:\Users\scornaz\git\supercollider\test\..\build\common;C:\Users\scornaz\git\supercollider\test\..\include\lang;C:\Users\scornaz\git\supercollider\test\..\lang\LangSource;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost_sync\include;C:\Users\scornaz\git\supercollider\test\..\external_libraries\yaml-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\scornaz\git\supercollider\test\..\common;C:\Users\scornaz\git\supercollider\test\..\include;C:\Users\scornaz\git\supercollider\test\..\include\common;C:\Users\scornaz\git\supercollider\test\..\include\server;C:\Users\scornaz\git\supercollider\test\..\build\common;C:\Users\scornaz\git\supercollider\test\..\include\lang;C:\Users\scornaz\git\supercollider\test\..\lang\LangSource;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost_sync\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\scornaz\git\supercollider\test\..\common;C:\Users\scornaz\git\supercollider\test\..\include;C:\Users\scornaz\git\supercollider\test\..\include\common;C:\Users\scornaz\git\supercollider\test\..\include\server;C:\Users\scornaz\git\supercollider\test\..\build\common;C:\Users\scornaz\git\supercollider\test\..\include\lang;C:\Users\scornaz\git\supercollider\test\..\lang\LangSource;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost_sync\include;C:\Users\scornaz\git\supercollider\test\..\external_libraries\yaml-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -112,27 +112,9 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <PostBuildEvent>
-      <Message>		</Message>
+      <Message></Message>
       <Command>setlocal
 "C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/Users/scornaz/git/supercollider/test/../build/lang/Debug/libsclang.dll C:/Users/scornaz/git/supercollider/test/../build/server/scsynth/Debug/libscsynth.dll C:/Users/scornaz/git/supercollider/test/../build/server/scsynth/Debug/libsndfile-1.dll C:/Users/scornaz/git/supercollider/test/build/Debug
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_directory C:/Users/scornaz/git/supercollider/test/../SCClassLibrary C:/Users/scornaz/git/supercollider/test/build/Debug/SCClassLibrary
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_directory C:/Users/scornaz/git/supercollider/test/../build/server/scsynth/Debug/plugins C:/Users/scornaz/git/supercollider/test/build/Debug/plugins
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -157,7 +139,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\scornaz\git\supercollider\test\..\common;C:\Users\scornaz\git\supercollider\test\..\include;C:\Users\scornaz\git\supercollider\test\..\include\common;C:\Users\scornaz\git\supercollider\test\..\include\server;C:\Users\scornaz\git\supercollider\test\..\build\common;C:\Users\scornaz\git\supercollider\test\..\include\lang;C:\Users\scornaz\git\supercollider\test\..\lang\LangSource;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost_sync\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\scornaz\git\supercollider\test\..\common;C:\Users\scornaz\git\supercollider\test\..\include;C:\Users\scornaz\git\supercollider\test\..\include\common;C:\Users\scornaz\git\supercollider\test\..\include\server;C:\Users\scornaz\git\supercollider\test\..\build\common;C:\Users\scornaz\git\supercollider\test\..\include\lang;C:\Users\scornaz\git\supercollider\test\..\lang\LangSource;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost_sync\include;C:\Users\scornaz\git\supercollider\test\..\external_libraries\yaml-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
@@ -172,10 +154,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;BUILDING_SCLANG;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\scornaz\git\supercollider\test\..\common;C:\Users\scornaz\git\supercollider\test\..\include;C:\Users\scornaz\git\supercollider\test\..\include\common;C:\Users\scornaz\git\supercollider\test\..\include\server;C:\Users\scornaz\git\supercollider\test\..\build\common;C:\Users\scornaz\git\supercollider\test\..\include\lang;C:\Users\scornaz\git\supercollider\test\..\lang\LangSource;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost_sync\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\scornaz\git\supercollider\test\..\common;C:\Users\scornaz\git\supercollider\test\..\include;C:\Users\scornaz\git\supercollider\test\..\include\common;C:\Users\scornaz\git\supercollider\test\..\include\server;C:\Users\scornaz\git\supercollider\test\..\build\common;C:\Users\scornaz\git\supercollider\test\..\include\lang;C:\Users\scornaz\git\supercollider\test\..\lang\LangSource;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost_sync\include;C:\Users\scornaz\git\supercollider\test\..\external_libraries\yaml-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\scornaz\git\supercollider\test\..\common;C:\Users\scornaz\git\supercollider\test\..\include;C:\Users\scornaz\git\supercollider\test\..\include\common;C:\Users\scornaz\git\supercollider\test\..\include\server;C:\Users\scornaz\git\supercollider\test\..\build\common;C:\Users\scornaz\git\supercollider\test\..\include\lang;C:\Users\scornaz\git\supercollider\test\..\lang\LangSource;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost_sync\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\scornaz\git\supercollider\test\..\common;C:\Users\scornaz\git\supercollider\test\..\include;C:\Users\scornaz\git\supercollider\test\..\include\common;C:\Users\scornaz\git\supercollider\test\..\include\server;C:\Users\scornaz\git\supercollider\test\..\build\common;C:\Users\scornaz\git\supercollider\test\..\include\lang;C:\Users\scornaz\git\supercollider\test\..\lang\LangSource;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost_sync\include;C:\Users\scornaz\git\supercollider\test\..\external_libraries\yaml-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -183,27 +165,9 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <PostBuildEvent>
-      <Message>		</Message>
+      <Message></Message>
       <Command>setlocal
 "C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/Users/scornaz/git/supercollider/test/../build/lang/Debug/libsclang.dll C:/Users/scornaz/git/supercollider/test/../build/server/scsynth/Debug/libscsynth.dll C:/Users/scornaz/git/supercollider/test/../build/server/scsynth/Debug/libsndfile-1.dll C:/Users/scornaz/git/supercollider/test/build/Debug
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_directory C:/Users/scornaz/git/supercollider/test/../SCClassLibrary C:/Users/scornaz/git/supercollider/test/build/Debug/SCClassLibrary
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_directory C:/Users/scornaz/git/supercollider/test/../build/server/scsynth/Debug/plugins C:/Users/scornaz/git/supercollider/test/build/Debug/plugins
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -228,7 +192,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\scornaz\git\supercollider\test\..\common;C:\Users\scornaz\git\supercollider\test\..\include;C:\Users\scornaz\git\supercollider\test\..\include\common;C:\Users\scornaz\git\supercollider\test\..\include\server;C:\Users\scornaz\git\supercollider\test\..\build\common;C:\Users\scornaz\git\supercollider\test\..\include\lang;C:\Users\scornaz\git\supercollider\test\..\lang\LangSource;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost_sync\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\scornaz\git\supercollider\test\..\common;C:\Users\scornaz\git\supercollider\test\..\include;C:\Users\scornaz\git\supercollider\test\..\include\common;C:\Users\scornaz\git\supercollider\test\..\include\server;C:\Users\scornaz\git\supercollider\test\..\build\common;C:\Users\scornaz\git\supercollider\test\..\include\lang;C:\Users\scornaz\git\supercollider\test\..\lang\LangSource;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost_sync\include;C:\Users\scornaz\git\supercollider\test\..\external_libraries\yaml-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
@@ -243,10 +207,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;BUILDING_SCLANG;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\scornaz\git\supercollider\test\..\common;C:\Users\scornaz\git\supercollider\test\..\include;C:\Users\scornaz\git\supercollider\test\..\include\common;C:\Users\scornaz\git\supercollider\test\..\include\server;C:\Users\scornaz\git\supercollider\test\..\build\common;C:\Users\scornaz\git\supercollider\test\..\include\lang;C:\Users\scornaz\git\supercollider\test\..\lang\LangSource;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost_sync\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\scornaz\git\supercollider\test\..\common;C:\Users\scornaz\git\supercollider\test\..\include;C:\Users\scornaz\git\supercollider\test\..\include\common;C:\Users\scornaz\git\supercollider\test\..\include\server;C:\Users\scornaz\git\supercollider\test\..\build\common;C:\Users\scornaz\git\supercollider\test\..\include\lang;C:\Users\scornaz\git\supercollider\test\..\lang\LangSource;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost_sync\include;C:\Users\scornaz\git\supercollider\test\..\external_libraries\yaml-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\scornaz\git\supercollider\test\..\common;C:\Users\scornaz\git\supercollider\test\..\include;C:\Users\scornaz\git\supercollider\test\..\include\common;C:\Users\scornaz\git\supercollider\test\..\include\server;C:\Users\scornaz\git\supercollider\test\..\build\common;C:\Users\scornaz\git\supercollider\test\..\include\lang;C:\Users\scornaz\git\supercollider\test\..\lang\LangSource;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost_sync\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\scornaz\git\supercollider\test\..\common;C:\Users\scornaz\git\supercollider\test\..\include;C:\Users\scornaz\git\supercollider\test\..\include\common;C:\Users\scornaz\git\supercollider\test\..\include\server;C:\Users\scornaz\git\supercollider\test\..\build\common;C:\Users\scornaz\git\supercollider\test\..\include\lang;C:\Users\scornaz\git\supercollider\test\..\lang\LangSource;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost_sync\include;C:\Users\scornaz\git\supercollider\test\..\external_libraries\yaml-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -254,27 +218,9 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <PostBuildEvent>
-      <Message>		</Message>
+      <Message></Message>
       <Command>setlocal
 "C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/Users/scornaz/git/supercollider/test/../build/lang/Debug/libsclang.dll C:/Users/scornaz/git/supercollider/test/../build/server/scsynth/Debug/libscsynth.dll C:/Users/scornaz/git/supercollider/test/../build/server/scsynth/Debug/libsndfile-1.dll C:/Users/scornaz/git/supercollider/test/build/Debug
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_directory C:/Users/scornaz/git/supercollider/test/../SCClassLibrary C:/Users/scornaz/git/supercollider/test/build/Debug/SCClassLibrary
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_directory C:/Users/scornaz/git/supercollider/test/../build/server/scsynth/Debug/plugins C:/Users/scornaz/git/supercollider/test/build/Debug/plugins
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -299,7 +245,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\scornaz\git\supercollider\test\..\common;C:\Users\scornaz\git\supercollider\test\..\include;C:\Users\scornaz\git\supercollider\test\..\include\common;C:\Users\scornaz\git\supercollider\test\..\include\server;C:\Users\scornaz\git\supercollider\test\..\build\common;C:\Users\scornaz\git\supercollider\test\..\include\lang;C:\Users\scornaz\git\supercollider\test\..\lang\LangSource;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost_sync\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\scornaz\git\supercollider\test\..\common;C:\Users\scornaz\git\supercollider\test\..\include;C:\Users\scornaz\git\supercollider\test\..\include\common;C:\Users\scornaz\git\supercollider\test\..\include\server;C:\Users\scornaz\git\supercollider\test\..\build\common;C:\Users\scornaz\git\supercollider\test\..\include\lang;C:\Users\scornaz\git\supercollider\test\..\lang\LangSource;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost_sync\include;C:\Users\scornaz\git\supercollider\test\..\external_libraries\yaml-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -313,10 +259,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;BUILDING_SCLANG;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\scornaz\git\supercollider\test\..\common;C:\Users\scornaz\git\supercollider\test\..\include;C:\Users\scornaz\git\supercollider\test\..\include\common;C:\Users\scornaz\git\supercollider\test\..\include\server;C:\Users\scornaz\git\supercollider\test\..\build\common;C:\Users\scornaz\git\supercollider\test\..\include\lang;C:\Users\scornaz\git\supercollider\test\..\lang\LangSource;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost_sync\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\scornaz\git\supercollider\test\..\common;C:\Users\scornaz\git\supercollider\test\..\include;C:\Users\scornaz\git\supercollider\test\..\include\common;C:\Users\scornaz\git\supercollider\test\..\include\server;C:\Users\scornaz\git\supercollider\test\..\build\common;C:\Users\scornaz\git\supercollider\test\..\include\lang;C:\Users\scornaz\git\supercollider\test\..\lang\LangSource;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost_sync\include;C:\Users\scornaz\git\supercollider\test\..\external_libraries\yaml-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\scornaz\git\supercollider\test\..\common;C:\Users\scornaz\git\supercollider\test\..\include;C:\Users\scornaz\git\supercollider\test\..\include\common;C:\Users\scornaz\git\supercollider\test\..\include\server;C:\Users\scornaz\git\supercollider\test\..\build\common;C:\Users\scornaz\git\supercollider\test\..\include\lang;C:\Users\scornaz\git\supercollider\test\..\lang\LangSource;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost_sync\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\scornaz\git\supercollider\test\..\common;C:\Users\scornaz\git\supercollider\test\..\include;C:\Users\scornaz\git\supercollider\test\..\include\common;C:\Users\scornaz\git\supercollider\test\..\include\server;C:\Users\scornaz\git\supercollider\test\..\build\common;C:\Users\scornaz\git\supercollider\test\..\include\lang;C:\Users\scornaz\git\supercollider\test\..\lang\LangSource;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost;C:\Users\scornaz\git\supercollider\test\..\external_libraries\boost_sync\include;C:\Users\scornaz\git\supercollider\test\..\external_libraries\yaml-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -324,27 +270,9 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <PostBuildEvent>
-      <Message>		</Message>
+      <Message></Message>
       <Command>setlocal
 "C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/Users/scornaz/git/supercollider/test/../build/lang/Debug/libsclang.dll C:/Users/scornaz/git/supercollider/test/../build/server/scsynth/Debug/libscsynth.dll C:/Users/scornaz/git/supercollider/test/../build/server/scsynth/Debug/libsndfile-1.dll C:/Users/scornaz/git/supercollider/test/build/Debug
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_directory C:/Users/scornaz/git/supercollider/test/../SCClassLibrary C:/Users/scornaz/git/supercollider/test/build/Debug/SCClassLibrary
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-"C:\Program Files\CMake\bin\cmake.exe" -E copy_directory C:/Users/scornaz/git/supercollider/test/../build/server/scsynth/Debug/plugins C:/Users/scornaz/git/supercollider/test/build/Debug/plugins
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone

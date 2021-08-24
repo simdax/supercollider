@@ -16,7 +16,9 @@ target_include_directories(unity PUBLIC
     ../lang/LangSource
     ../external_libraries/boost
     ../external_libraries/boost_sync/include
+    ../external_libraries/yaml-cpp/include
 )
+
 target_link_directories(unity PUBLIC
     ../build/lang/Debug
     ../build/server/scsynth/Debug
@@ -30,7 +32,8 @@ target_link_libraries(unity
 )
 
 add_executable(unity_bin main.cpp)
-target_link_libraries(unity_bin unity)
+target_link_libraries(unity_bin unity libsclang)
+
 add_custom_command(TARGET unity_bin POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
     ${CMAKE_SOURCE_DIR}/../build/lang/Debug/libsclang.dll
@@ -38,13 +41,13 @@ add_custom_command(TARGET unity_bin POST_BUILD
     ${CMAKE_SOURCE_DIR}/../build/server/scsynth/Debug/libsndfile-1.dll
     ${CMAKE_BINARY_DIR}/Debug
 )
-add_custom_command(TARGET unity_bin POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${CMAKE_SOURCE_DIR}/../SCClassLibrary
-    ${CMAKE_BINARY_DIR}/Debug/SCClassLibrary
-)
-add_custom_command(TARGET unity_bin POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${CMAKE_SOURCE_DIR}/../build/server/scsynth/Debug/plugins
-    ${CMAKE_BINARY_DIR}/Debug/plugins
-)
+# add_custom_command(TARGET unity_bin POST_BUILD
+#     COMMAND ${CMAKE_COMMAND} -E copy_directory
+#     ${CMAKE_SOURCE_DIR}/../SCClassLibrary
+#     ${CMAKE_BINARY_DIR}/Debug/SCClassLibrary
+# )
+# add_custom_command(TARGET unity_bin POST_BUILD
+#     COMMAND ${CMAKE_COMMAND} -E copy_directory
+#     ${CMAKE_SOURCE_DIR}/../build/server/scsynth/Debug/plugins
+#     ${CMAKE_BINARY_DIR}/Debug/plugins
+# )

@@ -225,30 +225,6 @@ optArgInvalid:
     return false;
 }
 
-std::thread *thread = nullptr;
-
-SCLANG_DLLEXPORT int runTerminalClient(void* _client, const char *configPath) {
-    auto client = reinterpret_cast<SC_TerminalClient*>(_client);
-    // client->mOptions.mLibraryConfigFile = configPath;
-    // client->mOptions.mLibraryConfigFile = "C:\\Users\\scornaz\\git\\supercollider\\test\\config.yaml";
-    if (client) {
-        thread = &std::thread([&](){
-            return client->run(0, nullptr);
-        });
-        return 1;
-    }
-    return 0;
-}
-
-SCLANG_DLLEXPORT_C int msgTerminalClient(void* _client, const char* msg) {
-    auto client = reinterpret_cast<SC_TerminalClient*>(_client);
-    if (client) {
-        client->setCmdLine(msg);
-        client->interpretPrintCmdLine();
-    }
-    return 0;
-}
-
 int SC_TerminalClient::run(int argc, char** argv) {
     Options& opt = mOptions;
 
@@ -270,8 +246,8 @@ int SC_TerminalClient::run(int argc, char** argv) {
     opt.mArgv = argv;
 
     // read library configuration file
-    // if (opt.mLibraryConfigFile)
-    //     SC_LanguageConfig::setConfigPath(opt.mLibraryConfigFile);
+    if (opt.mLibraryConfigFile)
+        SC_LanguageConfig::setConfigPath(opt.mLibraryConfigFile);
     SC_LanguageConfig::readLibraryConfig(opt.mStandalone);
 
     // initialize runtime
@@ -764,4 +740,28 @@ SCLANG_DLLEXPORT void destroyLanguageClient(class SC_LanguageClient* languageCli
     SetConsoleOutputCP(gOldCodePage);
 #endif
     delete languageClient;
+}
+
+std::thread *thread = nullptr;
+
+SCLANG_DLLEXPORT int runTerminalClient(void* _client, const char *configPath) {
+    auto client = reinterpret_cast<SC_TerminalClient*>(_client);
+    // client->mOptions.mLibraryConfigFile = configPath;
+    // client->mOptions.mLibraryConfigFile = "C:\\Users\\scornaz\\git\\supercollider\\test\\config.yaml";
+    if (client) {
+        thread = &std::thread([&](){
+            return client->run(0, nullptr);
+        });
+        return 1;
+    }
+    return 0;
+}
+
+SCLANG_DLLEXPORT_C int msgTerminalClient(void* _client, const char* msg) {
+    auto client = reinterpret_cast<SC_TerminalClient*>(_client);
+    if (client) {
+        client->setCmdLine(msg);
+        client->interpretPrintCmdLine();
+    }
+    return 0;
 }

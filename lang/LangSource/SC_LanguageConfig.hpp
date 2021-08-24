@@ -75,12 +75,12 @@ public:
     static const Path& getConfigPath() { return gConfigFile; }
     static void setConfigPath(const Path& p) { gConfigFile = p; }
 
+    DirVector mIncludedDirectories;
 private:
     static bool findPath(const DirVector&, const Path&);
     static bool addPath(DirVector&, const Path&);
     static bool removePath(DirVector&, const Path&);
 
-    DirVector mIncludedDirectories;
     DirVector mExcludedDirectories;
     DirVector mDefaultClassLibraryDirectories;
     bool mExcludeDefaultPaths = true;
