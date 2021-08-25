@@ -32,8 +32,6 @@
 const int kTextBufSize = 65536;
 extern boost::asio::ip::udp::socket *gUdpSocket;
 
-SCSYNTH_DLLEXPORT_C void CloseUDPConnection();
-
 class SC_UdpInPort {
     int mPortNum;
     boost::array<char, kTextBufSize> recvBuffer;

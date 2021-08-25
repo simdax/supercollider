@@ -45,12 +45,11 @@ void ProcessOSCPacket(OSC_Packet* inPacket, int inPortNum, double time);
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 SC_Thread gAsioThread;
-boost::asio::io_service ioService;
-
+boost::asio::io_service *ioService;
 
 static void asioFunction() {
-    boost::asio::io_service::work work(ioService);
-    ioService.run();
+    boost::asio::io_service::work work(*ioService);
+    ioService->run();
 }
 
 void startAsioThread() {
@@ -59,24 +58,13 @@ void startAsioThread() {
 }
 
 void stopAsioThread() {
-    ioService.stop();
+    ioService->stop();
     gAsioThread.join();
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-boost::asio::ip::udp::socket *gUdpSocket = nullptr;
-
-void CloseUDPConnection()
-{
-    if (gUdpSocket)
-    {
-        gUdpSocket->close();
-        gUdpSocket = nullptr;
-    }
-}
-
-SC_UdpInPort::SC_UdpInPort(int inPortNum, int portsToCheck): mPortNum(inPortNum), udpSocket(ioService) {
+SC_UdpInPort::SC_UdpInPort(int inPortNum, int portsToCheck): mPortNum(inPortNum), udpSocket(*ioService) {
     using namespace boost::asio;
 
     BOOST_AUTO(protocol, ip::udp::v4());
@@ -153,7 +141,7 @@ SC_UdpCustomInPort::~SC_UdpCustomInPort() {}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 SC_TcpInPort::SC_TcpInPort(int inPortNum, int inMaxConnections, int inBacklog):
-    acceptor(ioService, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), inPortNum)),
+    acceptor(*ioService, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), inPortNum)),
     mPortNum(inPortNum) {
     // FIXME: handle max connections
     // FIXME: backlog???
@@ -162,7 +150,7 @@ SC_TcpInPort::SC_TcpInPort(int inPortNum, int inMaxConnections, int inBacklog):
 }
 
 void SC_TcpInPort::startAccept() {
-    SC_TcpConnection::pointer newConnection(new SC_TcpConnection(ioService, this));
+    SC_TcpConnection::pointer newConnection(new SC_TcpConnection(*ioService, this));
 
     acceptor.async_accept(
         newConnection->socket,
@@ -221,7 +209,7 @@ void SC_TcpConnection::handleMsgReceived(const boost::system::error_code& error,
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 SC_TcpClientPort::SC_TcpClientPort(unsigned long inAddress, int inPort, ClientNotifyFunc notifyFunc, void* clientData):
-    socket(ioService),
+    socket(*ioService),
     endpoint(boost::asio::ip::address_v4(inAddress), inPort),
     mClientNotifyFunc(notifyFunc),
     mClientData(clientData) {

@@ -745,6 +745,8 @@ void ProcessOSCPacket(OSC_Packet* inPacket, int inPortNum, double time) {
     FreeOSCPacket(inPacket);
 }
 
+extern boost::asio::io_service *ioService;
+
 void startAsioThread();
 void stopAsioThread();
 
@@ -757,6 +759,7 @@ void init_OSC(int port) {
     }
 #endif
 
+    ioService = new boost::asio::io_service();
     startAsioThread();
 
     try {
@@ -806,8 +809,6 @@ void cleanup_OSC() {
     WSACleanup();
 #endif
 }
-
-extern boost::asio::io_service ioService;
 
 static int prGetHostByName(VMGlobals* g, int numArgsPushed) {
     PyrSlot* a = g->sp;
