@@ -47,7 +47,6 @@
 #    include "Rendezvous.h"
 #endif
 
-boost::asio::ip::tcp::socket *g_tcpSocket = nullptr;
 boost::asio::ip::udp::socket *g_udpSocket = nullptr;
 
 bool ProcessOSCPacket(World* inWorld, OSC_Packet* inPacket);
@@ -146,7 +145,7 @@ static bool UnrollOSCPacket(World* inWorld, int inSize, char* inData, OSC_Packet
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 SC_Thread gAsioThread;
-boost::asio::io_service ioService;
+boost::asio::io_service* ioService;
 
 const int kTextBufSize = 65536;
 
@@ -245,7 +244,7 @@ public:
         mWorld(world),
         mPortNum(inPortNum),
         mbindTo(bindTo),
-        udpSocket(ioService) {
+        udpSocket(*ioService) {
         using namespace boost::asio;
         BOOST_AUTO(protocol, ip::udp::v4());
         udpSocket.open(protocol);
@@ -391,7 +390,7 @@ class SC_TcpInPort {
 public:
     SC_TcpInPort(struct World* world, const std::string& bindTo, int inPortNum, int inMaxConnections, int inBacklog):
         mWorld(world),
-        acceptor(ioService, boost::asio::ip::tcp::endpoint(boost::asio::ip::address::from_string(bindTo), inPortNum)),
+        acceptor(*ioService, boost::asio::ip::tcp::endpoint(boost::asio::ip::address::from_string(bindTo), inPortNum)),
         mAvailableConnections(inMaxConnections) {
         // FIXME: backlog???
 
@@ -408,7 +407,7 @@ public:
     void startAccept() {
         if (mAvailableConnections > 0) {
             --mAvailableConnections;
-            SC_TcpConnection::pointer newConnection(new SC_TcpConnection(mWorld, ioService, this));
+            SC_TcpConnection::pointer newConnection(new SC_TcpConnection(mWorld, *ioService, this));
 
             acceptor.async_accept(
                 newConnection->socket,
@@ -443,8 +442,8 @@ static void asioFunction() {
     nova::thread_set_priority(priorities.second);
 #endif
 
-    boost::asio::io_service::work work(ioService);
-    ioService.run();
+    boost::asio::io_service::work work(*ioService);
+    ioService->run();
 }
 
 void startAsioThread() {
@@ -453,7 +452,8 @@ void startAsioThread() {
 }
 
 void stopAsioThread() {
-    ioService.stop();
+    ioService->stop();
+    // delete ioService;
     gAsioThread.join();
 }
 
@@ -514,12 +514,15 @@ template <typename T, typename... Args> static bool protectedOpenPort(const char
 }
 
 SCSYNTH_DLLEXPORT_C int World_OpenUDP(struct World* inWorld, const char* bindTo, int inPort) {
+    ioService = new boost::asio::io_service();
     return protectedOpenPort<SC_UdpInPort>("UDP", inWorld, bindTo, inPort);
 }
 
 SCSYNTH_DLLEXPORT_C int World_CloseUDP() {
     if (g_udpSocket) {
+        g_udpSocket->shutdown(boost::asio::socket_base::shutdown_type::shutdown_both);
         g_udpSocket->close();
+        g_udpSocket->release();
         g_udpSocket = nullptr;
         return 1;
     }
