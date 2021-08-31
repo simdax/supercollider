@@ -84,6 +84,6 @@ SCLANG_DLLEXPORT_C int server_new(int udpPortNum, const char* bindTo, const char
         }
     }
     fflush(stdout);
-    EventLoop::run([world]() { World_WaitForQuit(world, true); });
+    EventLoop::run([&world]() { World_WaitForQuit(world, true); });
     return 0;
 }

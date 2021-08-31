@@ -29,38 +29,6 @@
             "args": [
                 "test/server.cpp",
                 "test/main.cpp",
-                "-Icommon",
-                "-Iinclude",
-                "-Iinclude/common",
-                "-Iinclude/server",
-                "-Ibuild/common",
-                "-Iinclude/lang",
-                "-Ilang/LangSource",
-                "-Iexternal_libraries/boost",
-                "-Iexternal_libraries/boost_sync/include",
-                "-Lbuild/lang/Debug",
-                "-Lbuild/server/scsynth/Debug",
-                "-LC:/Users/scornaz/Downloads/boost_1_74_0/stage/lib",
-                "-llibsclang",
-                "-llibscsynth",
-                "-lws2_32",
-                "-g",
-                "-o./test/a.exe"
-            ],
-            "options": {
-                "cwd": "${workspaceFolder}"
-            },
-            "problemMatcher": [
-                "$gcc"
-            ],
-        },
-        {
-            "type": "cppbuild",
-            "label": "build a.exe",
-            "command": "C:/Program Files/LLVM/bin/clang++.exe",
-            "args": [
-                "test/server.cpp",
-                "test/main.cpp",
                 "-llibscsynth",
                 "-Icommon",
                 "-Iinclude",
