@@ -20,13 +20,16 @@ std::thread* lang_thread = nullptr;
 std::atomic_bool stop = false;
 
 SCLANG_DLLEXPORT_C void go() {
+    int port = 57111;
     server_thread = new std::thread(
-        []() { 
-            server_new(57110, "127.0.0.1", "C:/Users/scornaz/git/supercollider/test/unity_srcs/plugins"); 
+        [=]() { 
+            server_new(port, "127.0.0.1", "C:/Users/scornaz/git/supercollider/test/unity_srcs/plugins"); 
         });
     lang_new("C:/Users/scornaz/git/supercollider/test/unity_srcs");
-    lang_msg("t = Server.remote('test', NetAddr(\"127.0.0.1\",57110), ServerOptions());"
-                 "Server.default = t;");
+    lang_msg(((std::stringstream("")
+            << "t = Server.remote('test', NetAddr(\"127.0.0.1\"," << port << "), ServerOptions());"
+            "Server.default = t;"
+    )).str().c_str());
     lang_thread = new std::thread([]() {
         while (!stop) {
             lang_tick();
