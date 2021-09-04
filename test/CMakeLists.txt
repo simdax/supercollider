@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 project(unity)
-add_library(unity SHARED server.cpp)
+add_library(unity SHARED server.cpp lang.cpp)
 
 target_compile_definitions(unity PUBLIC
     BUILDING_SCLANG

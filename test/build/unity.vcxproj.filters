@@ -4,6 +4,9 @@
     <ClCompile Include="C:\Users\scornaz\git\supercollider\test\server.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\scornaz\git\supercollider\test\lang.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\Users\scornaz\git\supercollider\test\CMakeLists.txt" />

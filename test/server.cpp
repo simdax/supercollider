@@ -1,36 +1,24 @@
 #include "include.h"
 #include <SC_LanguageConfig.hpp>
 
-LangClient::LangClient(const char* libraryPath): SC_LanguageClient("C_API") {
-    SC_LanguageClient::Options options;
-
-    initRuntime(options);
-    compileLibrary(false);
-}
-
-void LangClient::msg(const char* msg) {
-    setCmdLine(msg);
-    interpretPrintCmdLine();
-    flush();
-}
-
 LangClient* gLangClient = nullptr;
 std::thread* server_thread = nullptr;
 std::thread* lang_thread = nullptr;
 std::atomic_bool stop = false;
 
 SCLANG_DLLEXPORT_C void go() {
-    int port = 57111;
+    auto port = 57111;
+    auto host = "127.0.0.1";
+
     server_thread = new std::thread(
-        [=]() { 
-            server_new(port, "127.0.0.1", "C:/Users/scornaz/git/supercollider/test/unity_srcs/plugins"); 
-        });
+        [=]() { server_new(port, host, "C:/Users/scornaz/git/supercollider/test/unity_srcs/plugins"); });
     lang_new("C:/Users/scornaz/git/supercollider/test/unity_srcs");
-    lang_msg(((std::stringstream("")
-            << "t = Server.remote('test', NetAddr(\"127.0.0.1\"," << port << "), ServerOptions());"
-            "Server.default = t;"
-    )).str().c_str());
-    lang_thread = new std::thread([]() {
+    lang_msg(((std::stringstream("") << "t = Server.remote('test', NetAddr(\"" << host << "\"," << port
+                                     << "), ServerOptions());"
+                                        "Server.default = t;"))
+                 .str()
+                 .c_str());
+    lang_thread = new std::thread([&]() {
         while (!stop) {
             lang_tick();
             std::this_thread::sleep_for(std::chrono::milliseconds(100));
@@ -38,11 +26,13 @@ SCLANG_DLLEXPORT_C void go() {
     });
 }
 
-SCLANG_DLLEXPORT_C void all_stop() 
-{
+SCLANG_DLLEXPORT_C void all_stop() {
+    if (server_thread == nullptr || lang_thread == nullptr || gLangClient == nullptr) {
+        return;
+    }
     lang_msg("s.quit");
     server_thread->join();
-    World_CloseUDP(); 
+    World_CloseUDP();
     gLangClient->shutdownLibrary();
     gLangClient->shutdownRuntime();
     stop = true;
@@ -55,23 +45,6 @@ SCLANG_DLLEXPORT_C void all_stop()
     gLangClient = nullptr;
     stop = false;
 }
-
-SCLANG_DLLEXPORT_C void lang_new(const char *libPath) {
-    gLangClient = new LangClient(libPath);
-}
-
-SCLANG_DLLEXPORT_C void lang_msg(const char* msg) {
-    if (gLangClient) {
-        gLangClient->msg(msg);
-    }
-}
-
-SCLANG_DLLEXPORT_C void lang_tick() {
-    if (gLangClient) {
-        gLangClient->tick();
-    }
-}
-
 SCLANG_DLLEXPORT_C int server_new(int udpPortNum, const char* bindTo, const char* pluginPath) {
     WorldOptions options;
 

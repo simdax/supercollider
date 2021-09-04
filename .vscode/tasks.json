@@ -2,21 +2,18 @@
     "tasks": [
         {
             "type": "cppbuild",
-            "label": "cmake a.exe",
+            "label": "build test",
             "command": "cmake",
             "args": [
                 "--build",
                 "${workspaceFolder}/test/build"
             ],
             "detail": "compiler: cmake",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
+            "group": "build",
         },
         {
             "type": "cppbuild",
-            "label": "cmake build",
+            "label": "build supercollider",
             "command": "cmake",
             "args": [
                 "--build",
@@ -32,19 +29,11 @@
         },
         {
             "type": "shell",
-            "label": "copy lang a.exe",
+            "label": "copy unity dlls",
             "command": [
-                "cp ${workspaceFolder}/build/lang/Debug/libsclang.* ${workspaceFolder}/test"
+                "cp ${workspaceFolder}/test/build/Debug/*.dll C:/Users/scornaz/MyFirstGame/Assets/plugins/x64"
             ]
         },
-        {
-            "type": "shell",
-            "label": "copy",
-            "command": [
-                "(cp ${workspaceFolder}/build/server/scsynth/Debug/libscsynth.* C:/Users/scornaz/MyFirstGame/Assets/plugins/x64) -and",
-                "(cp ${workspaceFolder}/build/lang/Debug/libsclang.* C:/Users/scornaz/MyFirstGame/Assets/plugins/x64)"
-            ]
-        }
     ],
     "version": "2.0.0"
 }

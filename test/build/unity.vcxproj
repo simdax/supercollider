@@ -306,6 +306,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\Users\scornaz\git\supercollider\test\server.cpp" />
+    <ClCompile Include="C:\Users\scornaz\git\supercollider\test\lang.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:\Users\scornaz\git\supercollider\test\build\ZERO_CHECK.vcxproj">

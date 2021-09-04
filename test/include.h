@@ -26,47 +26,42 @@
 
 struct LangClient : SC_LanguageClient {
     FILE* gPostDest = stdout;
+    bool useScprintf = false;
 
     LangClient(const char* name);
+    void msg(const char* msg);
 
-    virtual void postText(const char* str, size_t len) { fwrite(str, sizeof(char), len, gPostDest); }
+    void write(const char* str, size_t size, size_t len, FILE* out) {
+        if (useScprintf) {
+            scprintf(str);
+        } else {
+            fwrite(str, size, len, out);
+        }
+    }
+
+    virtual void postText(const char* str, size_t len) { write(str, sizeof(char), len, gPostDest); }
 
     virtual void postFlush(const char* str, size_t len) {
-        fwrite(str, sizeof(char), len, gPostDest);
+        write(str, sizeof(char), len, gPostDest);
         fflush(gPostDest);
     }
 
     virtual void postError(const char* str, size_t len) {
         fprintf(gPostDest, "ERROR: ");
-        fwrite(str, sizeof(char), len, gPostDest);
+        write(str, sizeof(char), len, gPostDest);
     }
 
     virtual void flush() { fflush(gPostDest); }
-
-    void msg(const char* msg);
-
-    static int prScheduleChanged(VMGlobals* g, int numArgsPushed) {
-        return 0;
-    }
-
-    virtual void onLibraryStartup() {
-        // int base, index = 0;
-
-        // base = nextPrimitiveIndex();
-        // definePrimitive(base, index++, "_Argv", &SC_TerminalClient::prArgv, 1, 0);
-        // definePrimitive(base, index++, "_Exit", &SC_TerminalClient::prExit, 1, 0);
-        // definePrimitive(base, index++, "_AppClock_SchedNotify", prScheduleChanged, 1, 0);
-        // definePrimitive(base, index++, "_Recompile", &SC_TerminalClient::prRecompile, 1, 0);
-    }
 };
 
-extern LangClient*  gLangClient;
+extern LangClient* gLangClient;
 extern std::thread* server_thread;
 extern std::thread* lang_thread;
 
 SCLANG_DLLEXPORT_C int server_new(int udpPortNum, const char* bindTo, const char* pluginPath);
-SCLANG_DLLEXPORT_C void lang_new(const char *libPath);
-SCLANG_DLLEXPORT_C void lang_msg(const char *msg);
+SCLANG_DLLEXPORT_C void lang_new(const char* libPath);
+SCLANG_DLLEXPORT_C void lang_msg(const char* msg);
 SCLANG_DLLEXPORT_C void lang_tick();
 SCLANG_DLLEXPORT_C void go();
 SCLANG_DLLEXPORT_C void all_stop();
+SCLANG_DLLEXPORT_C void lang_setPrintF();

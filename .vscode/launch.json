@@ -26,12 +26,12 @@
             ],
         },
         {
-            "name": "a.exe",
+            "name": "test",
             "type": "cppvsdbg",
             "request": "launch",
             "cwd": "${workspaceFolder}/test/build/Debug",
             "program": "${workspaceFolder}/test/build/Debug/unity_bin.exe",
-            "preLaunchTask": "cmake a.exe",
+            "preLaunchTask": "build test",
             "console": "integratedTerminal",
         }
     ]
