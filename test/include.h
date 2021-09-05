@@ -29,7 +29,6 @@ struct LangClient : SC_LanguageClient {
     bool useScprintf = false;
 
     LangClient(const char* name);
-    void msg(const char* msg);
 
     void write(const char* str, size_t size, size_t len, FILE* out) {
         if (useScprintf) {
@@ -61,8 +60,10 @@ extern std::thread* lang_thread;
 
 SCLANG_DLLEXPORT_C int server_new(int udpPortNum, const char* bindTo, const char* pluginPath);
 SCLANG_DLLEXPORT_C void lang_new(const char* libPath);
-SCLANG_DLLEXPORT_C void lang_msg(const char* msg);
 SCLANG_DLLEXPORT_C void lang_tick();
+SCLANG_DLLEXPORT_C void lang_msg(const char* msg);
+SCLANG_DLLEXPORT_C void server_stop();
+SCLANG_DLLEXPORT_C void lang_stop();
 SCLANG_DLLEXPORT_C void go();
 SCLANG_DLLEXPORT_C void all_stop();
 SCLANG_DLLEXPORT_C void lang_setPrintF();
