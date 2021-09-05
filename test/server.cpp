@@ -45,6 +45,7 @@ SCLANG_DLLEXPORT_C void all_stop() {
     gLangClient = nullptr;
     stop = false;
 }
+
 SCLANG_DLLEXPORT_C int server_new(int udpPortNum, const char* bindTo, const char* pluginPath) {
     WorldOptions options;
 
@@ -60,6 +61,6 @@ SCLANG_DLLEXPORT_C int server_new(int udpPortNum, const char* bindTo, const char
         }
     }
     fflush(stdout);
-    EventLoop::run([&world]() { World_WaitForQuit(world, true); });
+    EventLoop::run([&]() { World_WaitForQuit(world, true); });
     return 0;
 }

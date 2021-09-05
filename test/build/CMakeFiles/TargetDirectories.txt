@@ -1,4 +1,0 @@
-C:/Users/scornaz/git/supercollider/test/build/CMakeFiles/unity.dir
-C:/Users/scornaz/git/supercollider/test/build/CMakeFiles/unity_bin.dir
-C:/Users/scornaz/git/supercollider/test/build/CMakeFiles/ALL_BUILD.dir
-C:/Users/scornaz/git/supercollider/test/build/CMakeFiles/ZERO_CHECK.dir
