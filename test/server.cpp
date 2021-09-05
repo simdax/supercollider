@@ -11,8 +11,8 @@ SCLANG_DLLEXPORT_C void go() {
     auto host = "127.0.0.1";
 
     server_thread = new std::thread(
-        [=]() { server_new(port, host, "C:/Users/scornaz/git/supercollider/test/unity_srcs/plugins"); });
-    lang_new("C:/Users/scornaz/git/supercollider/test/unity_srcs");
+        [=]() { server_new(port, host, "C:/Users/scornaz/git/supercollider/test/plugins"); });
+    lang_new("C:/Users/scornaz/git/supercollider/test");
     lang_msg(((std::stringstream("") << "t = Server.remote('test', NetAddr(\"" << host << "\"," << port
                                      << "), ServerOptions());"
                                         "Server.default = t;"))
