@@ -54,7 +54,8 @@ struct LangClient : SC_LanguageClient {
     virtual void flush() { fflush(gPostDest); }
 };
 
-extern LangClient* gLangClient;
+// extern LangClient* gLangClient;
+extern SC_LanguageClient* gLangClient;
 extern std::thread* server_thread;
 extern std::thread* lang_thread;
 

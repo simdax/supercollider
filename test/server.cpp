@@ -1,7 +1,8 @@
 #include "include.h"
 #include <SC_LanguageConfig.hpp>
 
-LangClient* gLangClient = nullptr;
+SC_LanguageClient* gLangClient = nullptr;
+// LangClient* gLangClient = nullptr;
 std::thread* server_thread = nullptr;
 std::thread* lang_thread = nullptr;
 std::atomic_bool stop = false;
@@ -39,7 +40,7 @@ SCLANG_DLLEXPORT_C void all_stop() {
     lang_thread->join();
     delete server_thread;
     delete lang_thread;
-    delete gLangClient;
+    destroyLanguageClient(gLangClient);
     server_thread = nullptr;
     lang_thread = nullptr;
     gLangClient = nullptr;
