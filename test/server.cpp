@@ -1,7 +1,6 @@
 #include "include.h"
 #include <SC_LanguageConfig.hpp>
 
-SC_LanguageClient* gLangClient = nullptr;
 std::thread* server_thread = nullptr;
 
 void server_stop() {

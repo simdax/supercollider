@@ -6,6 +6,7 @@ SCLANG_DLLEXPORT_C void go() {
 
     server_new(port, host, "C:/Users/scornaz/git/supercollider/test/plugins");
     lang_new("C:/Users/scornaz/git/supercollider/test");
+    std::this_thread::sleep_for(std::chrono::milliseconds(2000));
     lang_msg(((std::stringstream("") << "t = Server.remote('test', NetAddr(\"" << host << "\"," << port
                                      << "), ServerOptions());"
                                         "Server.default = t;"))

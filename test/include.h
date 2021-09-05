@@ -53,14 +53,9 @@ struct LangClient : SC_LanguageClient {
     virtual void flush() { fflush(gPostDest); }
 };
 
-// extern LangClient* gLangClient;
-extern SC_LanguageClient* gLangClient;
-extern std::thread* server_thread;
-extern std::thread* lang_thread;
 
 SCLANG_DLLEXPORT_C int server_new(int udpPortNum, const char* bindTo, const char* pluginPath);
 SCLANG_DLLEXPORT_C void lang_new(const char* libPath);
-SCLANG_DLLEXPORT_C void lang_tick();
 SCLANG_DLLEXPORT_C void lang_msg(const char* msg);
 SCLANG_DLLEXPORT_C void server_stop();
 SCLANG_DLLEXPORT_C void lang_stop();

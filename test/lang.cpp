@@ -1,39 +1,38 @@
 #include "include.h"
 #include <SC_TerminalClient.h>
 
-// SCLANG_DLLEXPORT_C void lang_new(const char* libPath) {
-//     gLangClient = createLanguageClient("test");
-//     lang_thread = new std::thread([&]() {
-//         gLangClient->run({}, 0);
-//     });
-// }
-
 std::atomic_bool stop = false;
 std::thread* lang_thread = nullptr;
+std::thread* lang_tick_thread = nullptr;
+SC_LanguageClient* gLangClient = nullptr;
+
+void lang_new(const char* libPath) {
+    SC_LanguageClient::Options options;
+    gLangClient = createLanguageClient("test");
+    lang_thread = new std::thread([]() {
+        std::vector<char*> args({
+            "fakebin",
+            "-D",
+            // "-a",
+            // "-r", "C:/Users/scornaz/git/supercollider/test",
+            // "-l", "C:/Users/scornaz/git/supercollider/test/sclang_conf.yaml"
+        });
+        gLangClient->run(args.size(), reinterpret_cast<char**>(args.data()));
+        destroyLanguageClient(gLangClient);
+        gLangClient = nullptr;
+    });
+    stop = false;
+}
 
 void lang_stop() {
     if (lang_thread == nullptr || gLangClient == nullptr) {
         return;
     }
-    gLangClient->shutdownLibrary();
-    gLangClient->shutdownRuntime();
-    stop = true;
-    destroyLanguageClient(gLangClient);
+    auto client = dynamic_cast<SC_TerminalClient*>(gLangClient);
+    client->stop();
     lang_thread->join();
     delete lang_thread;
     lang_thread = nullptr;
-    gLangClient = nullptr;
-}
-
-void lang_new(const char* libPath) {
-    gLangClient = new LangClient(libPath);
-    stop = false;
-    lang_thread = new std::thread([&]() {
-        while (!stop) {
-            lang_tick();
-            std::this_thread::sleep_for(std::chrono::milliseconds(100));
-        }
-    });
 }
 
 void lang_msg(const char* msg) {
@@ -49,10 +48,4 @@ LangClient::LangClient(const char* libraryPath): SC_LanguageClient("C_API") {
 
     initRuntime(options);
     compileLibrary(false);
-}
-
-void lang_tick() {
-    if (gLangClient) {
-        gLangClient->tick();
-    }
 }
