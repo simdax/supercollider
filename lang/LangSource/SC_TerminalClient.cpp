@@ -65,6 +65,7 @@
 
 using namespace boost::placeholders;
 
+// static FILE* gPostDest = stdout;
 static FILE* gPostDest = stdout;
 
 #ifdef _WIN32
@@ -83,6 +84,7 @@ SC_TerminalClient::SC_TerminalClient(const char* name):
     mStdIn(mInputService, GetStdHandle(STD_INPUT_HANDLE))
 #endif
 {
+   gPostDest = fopen("C:/sclog", "w+");
 }
 
 SC_TerminalClient::~SC_TerminalClient() {}

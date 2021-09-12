@@ -1,3 +1,0 @@
-# SuperCollider
-
-Bindings for SuperCollider.

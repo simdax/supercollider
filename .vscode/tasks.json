@@ -26,8 +26,11 @@
             "type": "shell",
             "label": "copy unity dlls",
             "command": [
-                "cp ${workspaceFolder}/test/build/Debug/*.dll ${workspaceFolder}/test/package"
-            ]
+                "${workspaceFolder}/test/copy"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/test"
+            }
         },
     ],
     "version": "2.0.0"
