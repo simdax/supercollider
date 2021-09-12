@@ -1,0 +1,6 @@
+includePaths:
+    -  C:/Users/scornaz/git/supercollider/unity/package/Resources/SCClassLibrary
+excludePaths:
+    []
+postInlineWarnings: false
+excludeDefaultPaths: true
