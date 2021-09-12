@@ -1,0 +1,35 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "unity",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "symbolSearchPath": "C://Users//scornaz//MyFirstGame//Assets//plugins//x64",
+            "program": "C:/Program Files/Unity/Hub/Editor/2020.3.16f1/Editor/Unity.exe",
+            "args": [
+                "-projectPath",
+                "C:/Users/scornaz/MyFirstGame"
+            ],
+        },
+        {
+            "name": "classic sclang",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/lang/Debug/sclang.exe",
+            "args": [
+                "-u",
+                "57119"
+            ],
+        },
+        {
+            "name": "test",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/test/build/Debug/unity_bin.exe",
+            "preLaunchTask": "build test",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceRoot}/test",
+        }
+    ]
+}
