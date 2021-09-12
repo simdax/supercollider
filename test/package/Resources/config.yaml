@@ -3,4 +3,4 @@ includePaths:
 excludePaths:
     []
 postInlineWarnings: false
-excludeDefaultPaths: false
+excludeDefaultPaths: true 
