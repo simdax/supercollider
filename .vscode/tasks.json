@@ -2,18 +2,18 @@
     "tasks": [
         {
             "type": "cppbuild",
-            "label": "build test",
+            "label": "unity plugin",
             "command": "cmake",
             "args": [
                 "--build",
-                "${workspaceFolder}/test/build"
+                "${workspaceFolder}/unity/build"
             ],
             "detail": "compiler: cmake",
             "group": "build",
         },
         {
             "type": "cppbuild",
-            "label": "build supercollider",
+            "label": "supercollider",
             "command": "cmake",
             "args": [
                 "--build",
@@ -26,10 +26,10 @@
             "type": "shell",
             "label": "copy unity dlls",
             "command": [
-                "${workspaceFolder}/test/copy"
+                "${workspaceFolder}/unity/copy"
             ],
             "options": {
-                "cwd": "${workspaceFolder}/test"
+                "cwd": "${workspaceFolder}/unity"
             }
         },
     ],

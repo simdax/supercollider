@@ -17,8 +17,11 @@ public class ToolMode
 
     static ToolMode()
     {
+        if (!EditorApplication.isPlayingOrWillChangePlaymode) {
+            return;
+        }
+        Debug.Log("starting SuperCollider");
         SetPrintFunc(new Print_f(Print));
-
         server_new(
             57111, 
             getString("127.0.0.1"), 

@@ -9,12 +9,6 @@ using UnityEngine;
 
 public class Lang : MonoBehaviour
 {
-    void Start()
-    {
-        msg(SuperCollider.SCFiles.Get()?.Init);
-        msg(SuperCollider.SCFiles.Get()?.Music);
-    }
-
     void OnApplicationQuit()
     {
         msg("CmdPeriod.run");

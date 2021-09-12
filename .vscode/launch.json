@@ -11,11 +11,11 @@
             "name": "unity",
             "type": "cppvsdbg",
             "request": "launch",
-            "symbolSearchPath": "C:/Users/scornaz/git/supercollider/test/package/Plugins/x64",
+            "symbolSearchPath": "C:/Users/scornaz/git/supercollider/unity/package/Plugins/x64",
             "program": "C:/Program Files/Unity/Hub/Editor/2020.3.16f1/Editor/Unity.exe",
             "args": [
                 "-projectPath",
-                "C:/Users/scornaz/unityproj"
+                "${workspaceFolder}/unity/unityproj"
             ],
         },
         {

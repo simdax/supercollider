@@ -2,9 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//should be singleton
-namespace SuperCollider
-{
     public class SCFiles : MonoBehaviour
     {
         public TextAsset Init;
@@ -36,5 +33,4 @@ namespace SuperCollider
                 }
             }
         }
-    }
 }

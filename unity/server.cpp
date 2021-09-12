@@ -8,7 +8,6 @@ void server_stop() {
     }
     lang_msg("s.quit");
     server_thread->join();
-    // World_CloseUDP();
     delete server_thread;
     server_thread = nullptr;
 }
@@ -16,7 +15,7 @@ void server_stop() {
 int pserver_new(int udpPortNum, const char* bindTo, const char* pluginPath) {
     WorldOptions options;
 
-    options.mMaxLogins = 1;
+    options.mMaxLogins = 2;
     options.mUGensPluginPath = pluginPath;
     World* world = World_New(&options);
     if (!world)
