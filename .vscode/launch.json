@@ -2,16 +2,21 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "(Windows) Attach",
+            "type": "cppvsdbg",
+            "request": "attach",
+            "processId": "${command:pickProcess}"
+        },
+        {
             "name": "unity",
             "type": "cppvsdbg",
             "request": "launch",
-            "symbolSearchPath": "C:/Users/scornaz/git/supercollider/test/build/Debug",
+            "symbolSearchPath": "C:/Users/scornaz/git/supercollider/test/package/Plugins/x64",
             "program": "C:/Program Files/Unity/Hub/Editor/2020.3.16f1/Editor/Unity.exe",
             "args": [
                 "-projectPath",
                 "C:/Users/scornaz/unityproj"
             ],
-            
         },
         {
             "name": "classic sclang",

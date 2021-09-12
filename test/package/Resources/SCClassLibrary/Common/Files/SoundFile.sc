@@ -18,6 +18,7 @@
 */
 
 SoundFile {
+	classvar <>root = "";
 	classvar <openFiles;
 
 	var <>fileptr;
