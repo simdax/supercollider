@@ -19,7 +19,6 @@ target_include_directories(unity PUBLIC
     ../external_libraries/yaml-cpp/include
     ../server/supernova
 )
-
 target_link_directories(unity PUBLIC
     ../build/lang/Debug
     ../build/server/scsynth/Debug

@@ -1,6 +1,0 @@
-includePaths:
-    -  C:/Users/scornaz/git/supercollider/test/SCClassLibrary
-excludePaths:
-    []
-postInlineWarnings: false
-excludeDefaultPaths: false

@@ -1,0 +1,8 @@
+{
+    "name": "com.supercollider",
+    "version": "0.0.1",
+    "description": "Supercollider bindings for Unity",
+    "displayName": "SuperCollider",
+    "author": { "name": "Simon Cornaz", "email": "simoncornaz@gmail.com"},
+    "hideInEditor": false
+}

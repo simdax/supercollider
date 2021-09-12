@@ -24,14 +24,9 @@
         },
         {
             "type": "shell",
-            "label": "kill unity",
-            "command": "taskkill /f /im Unity.exe"
-        },
-        {
-            "type": "shell",
             "label": "copy unity dlls",
             "command": [
-                "cp ${workspaceFolder}/test/build/Debug/*.dll C:/Users/scornaz/MyFirstGame/Assets/plugins/x64"
+                "cp ${workspaceFolder}/test/build/Debug/*.dll ${workspaceFolder}/test/package"
             ]
         },
     ],

@@ -7,13 +7,10 @@ int print(const char* format, va_list ap) {
 }
 
 void go() {
-    auto port = 57111;
-    auto host = "127.0.0.1";
-
-    server_new(port, host, "C:/Users/scornaz/git/supercollider/build/server/plugins/Debug");
+    server_new(57111, "127.0.0.1", "package/Resources/plugins");
     lang_new(
-        "C:/Users/scornaz/git/supercollider/test/config.yaml",
-        "C:/Users/scornaz/git/supercollider/test/test.scd"
+        "package/Resources/config.yaml",
+        "package/Resources/init.scd"
     );
     std::this_thread::sleep_for(std::chrono::milliseconds(3000));
 }

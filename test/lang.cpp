@@ -14,7 +14,7 @@ void lang_new(const char* confPath, const char *initFile) {
     lang_thread = new std::thread([=]() {
         std::vector<const char*> args{
             "fakebin",
-            "-D",
+            "-a",
             "-l", confPath,
             initFile
         };
