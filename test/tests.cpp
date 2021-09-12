@@ -32,11 +32,11 @@ int main(int argc, char** argv) {
     SetPrintFunc(&print);
     go();
     std::this_thread::sleep_for(std::chrono::milliseconds(3000));
-    lang_msg("SoundFile(\"Music.wav\").play");
+    lang_msg("SoundFile(\"Music.wav\").play((amp:0.02))");
     std::this_thread::sleep_for(std::chrono::milliseconds(2000));
     lang_msg("CmdPeriod.run");
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-    lang_msg("SoundFile(\"Music.wav\").play");
+    lang_msg("SoundFile(\"Music.wav\").play((amp:0.1))");
     std::this_thread::sleep_for(std::chrono::milliseconds(2000));
     all_stop();
     return 0;
