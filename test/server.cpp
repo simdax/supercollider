@@ -8,7 +8,7 @@ void server_stop() {
     }
     lang_msg("s.quit");
     server_thread->join();
-    World_CloseUDP();
+    // World_CloseUDP();
     delete server_thread;
     server_thread = nullptr;
 }

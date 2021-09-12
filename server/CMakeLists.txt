@@ -23,3 +23,7 @@ endif()
 
 set(plugins "${plugins}" PARENT_SCOPE)
 set(supernova_plugins "${supernova_plugins}" PARENT_SCOPE)
+
+  set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /Zi")
+	set(CMAKE_SHARED_LINKER_FLAGS_RELEASE "${CMAKE_SHARED_LINKER_FLAGS_RELEASE} /DEBUG /OPT:REF /OPT:ICF")
+  add_compile_options("/Zi")

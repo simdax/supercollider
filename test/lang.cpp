@@ -32,7 +32,7 @@ void lang_stop() {
     {
         client->stop();
         lang_thread->join();
-        Lang_CloseUDP();
+        // Lang_CloseUDP();
         delete lang_thread;
         lang_thread = nullptr;
     }
