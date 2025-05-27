@@ -66,6 +66,7 @@
 #include "SC_Version.hpp"
 
 #include <filesystem>
+#include <fcntl.h>
 
 using namespace boost::placeholders;
 
@@ -131,6 +132,7 @@ int SC_TerminalClient::run(int argc, char** argv) {
         shutdownRuntime();
         return EXIT_FAILURE;
     }
+    return 1;
 
     // enter main loop
     if (!cliOptions.mInputFile.empty())
@@ -623,3 +625,24 @@ SCLANG_DLLEXPORT void destroyLanguageClient(class SC_LanguageClient* languageCli
 #endif
     delete languageClient;
 }
+
+SC_LanguageClient* StartClient(char* path) {
+    auto* client = SC_LanguageClient::instance();
+
+    if (!client) {
+        if (client = createLanguageClient("sclang")) {
+            char* argv[] = { "", "--include-path", path, "-D" };
+            int returnCode = client->run(4, argv);
+        }
+    }
+    return client;
+}
+
+void PlayFile(SC_LanguageClient* Client, const char* path) { Client->executeFile(path); }
+
+void PlayString(SC_LanguageClient* Client, const char* cmdline) { 
+	Client->setCmdLine(cmdline);
+	Client->interpretCmdLine(); 
+}
+
+void SetLogFD(const char* path) { gPostDest = fopen(path, "w"); }
