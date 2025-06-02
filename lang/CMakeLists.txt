@@ -382,6 +382,11 @@ elseif(WIN32)
     set(SC_WIN_DLL_DIRS)
     if(SNDFILE_LIBRARY_DIR)
       list(APPEND SC_WIN_DLL_DIRS "${SNDFILE_LIBRARY_DIR}")
+      file(GLOB SNDFILE_DLL "${SNDFILE_LIBRARY_DIR}/*.dll")
+      add_custom_command(TARGET sclang
+          POST_BUILD
+          COMMAND ${CMAKE_COMMAND} -E copy_if_different "${SNDFILE_DLL}" $<TARGET_FILE_DIR:sclang>
+      )
     endif(SNDFILE_LIBRARY_DIR)
     if(FFTW3F_LIBRARY_DIR)
       list(APPEND SC_WIN_DLL_DIRS "${FFTW3F_LIBRARY_DIR}")
@@ -462,3 +467,7 @@ else()
         RUNTIME DESTINATION "bin"
         PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
 endif()
+
+add_library(bob SHARED scapi.cpp)
+target_link_libraries(bob libsclang)
+target_link_libraries(bob libscsynth)

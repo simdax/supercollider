@@ -679,3 +679,34 @@ mark_as_advanced(MATH_LIBRARY)
 mark_as_advanced(QT_QMAKE_EXECUTABLE)
 mark_as_advanced(SNDFILE SNDFILE_LIBRARY_DIR)
 mark_as_advanced(SC_HIDAPI)
+
+add_executable(bib bob.cpp)
+target_include_directories(bib PUBLIC 
+include/lang
+include/server
+include/common
+lang)
+target_link_libraries(bib bob)
+
+add_custom_command(TARGET bib POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy	"C:/Users/s.cornaz/supercollider/build/lang/Debug/libsclang.pdb"
+        $<TARGET_FILE_DIR:bib>
+)
+add_custom_command(TARGET bib POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy		"C:/Users/s.cornaz/supercollider/build/lang/Debug/bob.dll"
+        $<TARGET_FILE_DIR:bib>
+)
+add_custom_command(TARGET bib POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy		"C:/Users/s.cornaz/supercollider/build/lang/Debug/bob.pdb"
+        $<TARGET_FILE_DIR:bib>
+)
+add_custom_command(TARGET bib POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "C:/Program Files/SuperCollider-3.13.0/readline.dll" 
+        $<TARGET_FILE_DIR:bib>
+)
+add_custom_command(TARGET bib POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+	"C:/Program Files/Mega-Nerd/libsndfile/bin/libsndfile-1.dll"
+        $<TARGET_FILE_DIR:bib>
+)
