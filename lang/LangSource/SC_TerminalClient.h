@@ -83,7 +83,7 @@ public:
 
     void stop() { mIoContext.stop(); }
 
-protected:
+public:
     void interpretCmdLine(const char* cmdLine, bool silent);
     void interpretCmdLine(const char* buf, size_t size, bool silent);
 

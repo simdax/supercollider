@@ -7,15 +7,22 @@ int main() {
     static auto* Lang = CreateClient();
 
     std::thread bob([]() {
-        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-        PlayString(Lang, "().play;");
-        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-        PlayString(Lang, "().play;");
+        // std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+        // std::cout << "Start Input" << std::endl;
+        // PlayString(Lang, "().play;");
+        // std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        // PlayString(Lang, "().play;");
     });
-
-    std::cout << "IO" << std::endl;
+    std::cout << "Start Server" << std::endl;
     auto* World = StartServer();
+    std::cout << "Start Client" << std::endl;
     StartClient(Lang, "C:/Users/s.cornaz/SCBundle/SuperCollider/SCClassLibrary", false);
+    std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+    std::cout << "Start Input" << std::endl;
+    PlayString(Lang, "().play;");
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    PlayString(Lang, "().play;");
+    // RunClient(Lang);
     std::cout << "Bye" << std::endl;
 }
 

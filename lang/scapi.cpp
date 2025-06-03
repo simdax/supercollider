@@ -1,5 +1,8 @@
 #include "scapi.h"
 #include <vector>
+#include <SC_TerminalClient.h>
+#include <PyrLexer.h>
+#include <SC_CLIOptions.hpp>
 
 World* StartServer() {
     WorldOptions Options;
@@ -14,14 +17,40 @@ World* StartServer() {
 SC_LanguageClient* CreateClient() { return createLanguageClient("test"); }
 
 void StartClient(SC_LanguageClient* Client, char* path, bool daemon) {
-    if (Client) {
-        std::vector<char*> argv = { "", "--include-path", path, "D:/My project/Assets/Scripts/server.scd" };
-        if (daemon) {
-            //argv.push_back("-D");
+    std::thread lang([=]() {
+        if (Client) {
+            std::vector<char*> argv = { "", "--include-path", path, "D:/My project/Assets/Scripts/server.scd" };
+            if (daemon) {
+                // argv.push_back("-D");
+            }
+            Client->run(argv.size(), argv.data());
         }
-        Client->run(argv.size(), argv.data());
-    }
+    });
+    lang.detach();
 }
+
+void RunClient(SC_LanguageClient* Client) {
+    // Client->daemon
+}
+
+// void StartClient(SC_LanguageClient* Client, char* path, bool daemon) {
+//     SC_TerminalClient::Options opt;
+//     std::vector<char*> argv = { "", "--include-path", path, "D:/My project/Assets/Scripts/server.scd" };
+//     SC_CLI::CLIOptions cliOptions;
+//
+//	cliOptions.parse(argv.size(), argv.data(), opt);
+//     Client->initRuntime(opt);
+//     Client->compileLibrary(opt.mStandalone);
+//     if (!compiledOK) {
+//         post("ERROR: Library has not been compiled successfully.\n");
+//         Client->shutdownLibrary();
+//         Client->flush();
+//         Client->shutdownRuntime();
+//         //return EXIT_FAILURE;
+//     }
+//     Client->daemonLoop();
+// }
+
 
 void PlayFile(SC_LanguageClient* Client, const char* path) { Client->executeFile(path); }
 
