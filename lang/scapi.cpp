@@ -24,13 +24,17 @@ void KillClient(SC_LanguageClient* Client) {
 }
 
 SC_LanguageClient* StartClient(char* path) {
-    SC_LanguageClient* Client = createLanguageClient("test");
+    SC_LanguageClient* Client =
+        SC_LanguageClient::instance() ? SC_LanguageClient::instance() : createLanguageClient("test");
 
-    std::thread lang([=]() {
+    std::thread lang([Client, p = std::string(path)]() {
         if (Client) {
             auto* World = StartServer();
-            std::vector<char*> argv = { "", "--include-path", path, "D:/My project/Assets/Scripts/server.scd" };
+            std::vector<char*> argv = { "", "-a", "--include-path", const_cast<char*>(p.c_str()),
+                                        "D:/My project/Assets/Scripts/server.scd" };
+
             Client->run(argv.size(), argv.data());
+            destroyLanguageClient(Client);
             World_Cleanup(World, true);
         }
     });
