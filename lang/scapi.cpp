@@ -1,8 +1,11 @@
-#include "scapi.h"
 #include <vector>
-#include <SC_TerminalClient.h>
-#include <PyrLexer.h>
-#include <SC_CLIOptions.hpp>
+#include <iostream>
+
+#include "scapi.h"
+#include "PyrLexer.h"
+#include "SC_WorldOptions.h"
+#include "SC_TerminalClient.h"
+#include "SC_CLIOptions.hpp"
 
 World* StartServer() {
     WorldOptions Options;
@@ -14,51 +17,30 @@ World* StartServer() {
     return World;
 }
 
-SC_LanguageClient* CreateClient() { return createLanguageClient("test"); }
+void KillClient(SC_LanguageClient* Client) {
+    if (SC_TerminalClient* client = static_cast<SC_TerminalClient*>(Client)) {
+        client->onQuit(0);
+    }
+}
 
-void StartClient(SC_LanguageClient* Client, char* path, bool daemon) {
+SC_LanguageClient* StartClient(char* path) {
+    SC_LanguageClient* Client = createLanguageClient("test");
+
     std::thread lang([=]() {
         if (Client) {
+            auto* World = StartServer();
             std::vector<char*> argv = { "", "--include-path", path, "D:/My project/Assets/Scripts/server.scd" };
-            if (daemon) {
-                // argv.push_back("-D");
-            }
             Client->run(argv.size(), argv.data());
+            World_Cleanup(World, true);
         }
     });
     lang.detach();
+    return Client;
 }
-
-void RunClient(SC_LanguageClient* Client) {
-    // Client->daemon
-}
-
-// void StartClient(SC_LanguageClient* Client, char* path, bool daemon) {
-//     SC_TerminalClient::Options opt;
-//     std::vector<char*> argv = { "", "--include-path", path, "D:/My project/Assets/Scripts/server.scd" };
-//     SC_CLI::CLIOptions cliOptions;
-//
-//	cliOptions.parse(argv.size(), argv.data(), opt);
-//     Client->initRuntime(opt);
-//     Client->compileLibrary(opt.mStandalone);
-//     if (!compiledOK) {
-//         post("ERROR: Library has not been compiled successfully.\n");
-//         Client->shutdownLibrary();
-//         Client->flush();
-//         Client->shutdownRuntime();
-//         //return EXIT_FAILURE;
-//     }
-//     Client->daemonLoop();
-// }
-
 
 void PlayFile(SC_LanguageClient* Client, const char* path) { Client->executeFile(path); }
 
 void PlayString(SC_LanguageClient* Client, const char* cmdline) {
     Client->setCmdLine(cmdline);
     Client->interpretCmdLine();
-}
-
-void SetLogFD(const char* path) {
-    // gPostDest = fopen(path, "w");
 }
